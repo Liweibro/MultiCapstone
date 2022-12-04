@@ -2,7 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Restaurant_card from './Restaurant_card';
+//import Restaurant from './Restaurant';
+//import ScoreSlide from './ScoreSlide';
+import Personal from './Personal';
 
 function Grid() {
     return (
@@ -13,7 +15,7 @@ function Grid() {
             <Col></Col>
 
             <Col xs={9}>
-                <Restaurant_card />
+                <Personal />
             </Col>
 
             <Col></Col>
