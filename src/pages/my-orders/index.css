@@ -1,0 +1,48 @@
+.head {
+  font-size: 22px;
+  padding: 10px 15px;
+  border: 0;
+  text-align: center;
+  margin: 10px 5px;
+  border-radius: 5px;
+  position: fixed;
+}
+.headtest {
+  font-size: 25px;
+  border: 0;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+
+.top_nav {
+  background-color: #adadad;
+}
+
+.group_button {
+  margin: 20px 40px;
+  text-align: left;
+  background-color: #828282;
+  border: none;
+}
+.group_name {
+  font-size: 25px;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.fixedtest {
+  position: fixed;
+  width: 100%;
+  border: none;
+  background-color: #adadad;
+  font-size: 85px;
+}
+
+.back {
+  background-color: #adadad;
+  border: none;
+  position: fixed;
+}
