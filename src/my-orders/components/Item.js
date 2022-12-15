@@ -8,7 +8,6 @@ const Item = ({}) => {
         <Grid container>
           <Grid xs={3}>
             <div>
-              
               <Image
                 src=
                 "https://media.geeksforgeeks.org/wp-content/uploads/20210425000233/test-300x297.png"
