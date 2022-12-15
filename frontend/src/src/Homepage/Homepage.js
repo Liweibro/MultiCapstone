@@ -50,9 +50,9 @@ function Restaurant() {
             <Col></Col>
 
             <Col xs={9}>
-              <><Link to=""></Link>
+              <>
                 <Card>
-                  <Card.Img variant="top" src={images}/>
+                  <Link to="/ordermeal"><Card.Img variant="top" src={images}/></Link>
                   <Card.Body>
                     <Card.Text>
                       餐廳名稱
