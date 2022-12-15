@@ -7,9 +7,9 @@ import Orderlist from './Orderlist/Orderlist';
 import Profile from './Profile/Profile';
 import PersonalChat from './PersonalChat/PersonalChat';
 import ScoreSlide from './ScoreSlide/ScoreSlide';
-import AllModal from './components/Modals/AllModal'
-import MyOrderData from './OrderData/MyOrder'
-import PartOrderData from './OrderData/PartOrder'
+import OrderMeal from './order-meals/index'
+import MyOrder from './my-orders'
+import JoinOrder from './join-order'
 
 function App() {
   return (
@@ -21,9 +21,9 @@ function App() {
              <Route element={<Chatroom/>} path='/chatroom'></Route>
              <Route element={<PersonalChat/>} path='/personalchat'></Route>
              <Route element={<ScoreSlide/>} path='/scoreslide'></Route>
-             <Route element={<AllModal/>} path='/allmodal'></Route>
-             <Route element={<MyOrderData/>} path='/myorderdata'></Route>
-             <Route element={<PartOrderData/>} path='/partorderdata'></Route> 
+             <Route element={<OrderMeal/>} path='/ordermeal'></Route>
+             <Route element={<MyOrder/>} path='/myorder'></Route>
+             <Route element={<JoinOrder/>} path='/joinorder'></Route>
       </Routes>
     </div>
   );
