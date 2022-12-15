@@ -1,38 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-//import Restaurant_card from './Restaurant_card';
-import Grid from './Grid'
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import OrderMeal from "./pages/order-meals";
+import JoinOrder from "./pages/join-order";
+import MyOrder from "./pages/my-orders";
+import "bootstrap/dist/css/bootstrap.min.css";
+//import App from './App';
+//import reportWebVitals from './reportWebVitals';
+//import Navbar from './pages/order-meal/components/Navbar';
 
-//ReactDOM.render(restaurant, document.getElementById('root'));
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Grid />
-  </React.StrictMode>
-);
-
-reportWebVitals();
-
-/*
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-
-import reportWebVitals from './reportWebVitals';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
+    <MyOrder  />
   </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
-*/
+//reportWebVitals();
