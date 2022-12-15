@@ -17,8 +17,11 @@ import {
 import Container from "react-bootstrap/Container";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-
+import Image from "react-bootstrap/Image";
+import "bootstrap-icons/font/bootstrap-icons.css"
 import { useState, useEffect } from "react";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function BasicGrid() {
   return (
@@ -82,17 +85,50 @@ export default function BasicGrid() {
         <Item />
         <Item />
       </Grid>
+
       <Navbar bg="dark" variant="dark" fixed="bottom">
-        <Container>
-          <Nav className="me-auto">
-            <Nav.Link href="#search">Search</Nav.Link>
-            <Nav.Link href="#together">Together</Nav.Link>
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#order">Order</Nav.Link>
-            <Nav.Link href="#account">Account</Nav.Link>
+        
+          
+          <Nav>
+
+            <Nav.Link href="#search">
+              <div className="bnav_item"><i class="bi bi-search"></i></div>
+              <div className="bnav_word">Search</div> 
+            </Nav.Link>
+
+
+
+            <Nav.Link href="#together">
+              <div><i class="bi bi-card-list"></i></div>
+              <div className="bnav_word">Together</div>
+            </Nav.Link>
+
+
+
+            <Nav.Link href="#home">
+              <div><i class="bi bi-house"></i></div>
+              <div className="bnav_word">Home</div>
+            </Nav.Link>
+
+
+
+            <Nav.Link href="#order">
+              <div><i class="bi bi-bag"></i></div>
+              <div className="bnav_word">Order</div>
+            </Nav.Link>
+
+
+
+            <Nav.Link href="#account">
+              <div><i class="bi bi-person"></i></div>
+              <div className="bnav_word">Account</div>
+            </Nav.Link>
+
           </Nav>
-        </Container>
+        
       </Navbar>
+
+      
       <br />
       <br />
       <br />
