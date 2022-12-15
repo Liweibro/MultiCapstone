@@ -100,6 +100,44 @@ function Restaurant() {
           </Row>
 
           <Row style={{"height":100}}></Row>
+          <Navbar bg="dark" variant="dark" fixed="bottom">
+            <Nav>
+
+              <Nav.Link href="#search">
+                <div className="bnav_item"><i class="bi bi-search"></i></div>
+                <div className="bnav_word">Search</div> 
+              </Nav.Link>
+
+              <Link to='/joinorder'>
+              <Nav.Link href="#together">
+                <div><i class="bi bi-card-list"></i></div>
+                <div className="bnav_word">Together</div>
+              </Nav.Link>
+              </Link>
+
+              <Link to={'/'}>
+              <Nav.Link href="#home">
+                <div><i class="bi bi-house"></i></div>
+                <div className="bnav_word">Home</div>
+              </Nav.Link>
+              </Link>
+
+              <Link to="/myorder">
+              <Nav.Link href="#order">
+                <div><i class="bi bi-bag"></i></div>
+                <div className="bnav_word">Order</div>
+              </Nav.Link>
+              </Link>
+
+              <Link to ='/profile'>
+              <Nav.Link href="#account">
+                <div><i class="bi bi-person"></i></div>
+                <div className="bnav_word">Account</div>
+              </Nav.Link>
+              </Link>
+            </Nav>
+        
+          </Navbar>
     </Container>
   );
 }
