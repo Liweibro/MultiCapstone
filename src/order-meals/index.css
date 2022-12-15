@@ -1,0 +1,74 @@
+.buy {
+  border-radius: 5px;
+  background-color: rgb(55, 55, 55);
+  color: #fff;
+  border: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+}
+
+.list {
+  padding-top: 20px;
+}
+
+.item {
+  width: 100%;
+  border-bottom: 1px solid #000;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove {
+  border: 0;
+  background-color: rgb(212, 101, 101);
+  color: #fff;
+  padding: 10px;
+}
+
+.meal_button {
+  width: 100%;
+  padding: 10px;
+  margin: 20px 40px;
+  text-align: left;
+  background-color: #828282;
+  border: none;
+}
+
+.top {
+  background-color: #adadad;
+}
+
+.meal_name {
+  font-size: 20px;
+}
+
+.res_name {
+  font-size: 35px;
+  color: #000;
+}
+
+.price {
+  font-size: 15px;
+}
+
+.star {
+  font-size: 22px;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.fixedhead {
+  position: fixed;
+  width: 100%;
+  border: none;
+  background-color: #adadad;
+  font-size: 50px;
+}
