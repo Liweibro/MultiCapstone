@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+}
+  
+
+div.Back {
+    position: absolute;
+    top: 20px;
+    left: 20px
+}
+
+.container { /*螢幕過長，但MyOrder會變成需要滑動QQ*/
+    padding-bottom: 30%;
+}
+div.NumberBox {
+    background-color: #D9D9D9;
+    height: 1.4em;
+    width: 2em;
+    border-radius: 0%;
+}
+div.TextBox {
+    background-color: #D9D9D9;
+    height: 1.4em;
+    border-radius: 0%;
+}
+div.ResName {
+    background-color: #F5F5F5;
+    padding: 2% 0%;
+}
+div.UserBox {
+    height: 65px;
+    background-color: #D9D9D9;
+    margin-top: 50%;
+}
+
+.row div {
+    margin: 2% 0% 0% 0%;
+    font-size: 18px;
+    font-weight: bold;
+    /* align-content: center; */
+    /* border: 1px solid;
+    background-color: aquamarine; */
+}
+
+.top-container {
+    display: grid;
+    background-color: #F5F5F5;
+    height: 130px;
+    margin: 0%;
+}
+
+.bottom-container {
+    display: grid;
+    background-color: #F5F5F5;
+    height: 380px;
+    margin: 0%;
+}
+
+.bottom-container > .row {
+    height: 80px;
+}
+
+/* For PartOrder */
+
+.footer {
+    /* background-color: blue; */
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 2% 0%;
+    width: 100%;
+}
