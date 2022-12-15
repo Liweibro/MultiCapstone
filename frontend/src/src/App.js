@@ -10,6 +10,9 @@ import ScoreSlide from './ScoreSlide/ScoreSlide';
 import OrderMeal from './order-meals/index'
 import MyOrder from './my-orders'
 import JoinOrder from './join-order'
+import AllModal from './components/Modals/AllModal'
+import MyOrderData from './OrderData/MyOrder'
+import PartOrderData from './OrderData/PartOrder'
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
              <Route element={<OrderMeal/>} path='/ordermeal'></Route>
              <Route element={<MyOrder/>} path='/myorder'></Route>
              <Route element={<JoinOrder/>} path='/joinorder'></Route>
+             <Route element={<AllModal/>} path='/allmodal'></Route>
+             <Route element={<MyOrderData/>} path='/myorderdata'></Route>
+             <Route element={<PartOrderData/>} path='/partorderdata'></Route> 
       </Routes>
     </div>
   );
