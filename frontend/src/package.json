@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
 
-  "homepage": "https://liweibro.github.io/MultiCapstone",
+  "homepage": "https://liweibro.github.io/MultiCapstone/",
 
   "dependencies": {
     "@draftbit/ui": "^46.4.3",
