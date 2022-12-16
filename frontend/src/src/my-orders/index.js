@@ -18,7 +18,7 @@ import Container from "react-bootstrap/Container";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import Image from "react-bootstrap/Image";
-import "bootstrap-icons/font/bootstrap-icons.css"
+//import "bootstrap-icons/font/bootstrap-icons.css"
 import { useState, useEffect } from "react";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
