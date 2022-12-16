@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Accordion, Button, Badge, Container, Row, Col, Card, Navbar, Nav} from 'react-bootstrap';
+import {Accordion, Button, Badge, Container, Row, Col, Card, Nav, Navbar} from 'react-bootstrap';
 
 import '../all.css'
 import images from '../images/pexels-chan-walrus-958545.jpg';
