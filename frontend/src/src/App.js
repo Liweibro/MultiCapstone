@@ -18,7 +18,7 @@ function App() {
   return (
     <div >
        <Routes>
-             <Route element={<Homepage />} path={'/MultiCapstone/'}></Route>
+             <Route element={<Homepage />} path={'/MultiCapstone'}></Route>
              <Route element={<Orderlist/>} path='/list'></Route>
              <Route element={<Profile/>} path='/profile'></Route>
              <Route element={<Chatroom/>} path='/chatroom'></Route>
