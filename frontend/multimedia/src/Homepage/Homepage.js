@@ -1,4 +1,4 @@
-
+import { useEffect, useState } from 'react';
 
 
 // Import the functions you need from the SDKs you need
@@ -30,17 +30,30 @@ async function getorder(db) {
   return orderList;
 }
 async function getres(db) {
-  const resCol = collection(db, 'restaurant');
-  const resSnapshot = await getDocs(resCol);
-  const resList = resSnapshot.docs.map(doc => doc.data());
-  return resList;
+    const resCol = collection(db, 'restaurant');
+    const resSnapshot = await getDocs(resCol);
+    
+    const resList = resSnapshot.docs.map(doc => doc.data());
+    
+    return resList;
 }
+// let restaurant = []
+// getres(db).then(result => restaurant = result )
+// console.log(res)
+
+
+
 function Homepage() {
-    console.log(getres(db))
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        getres(db).then(res => setData(res));
+    }, []);
+    console.log(data)
     return(
         <div>
             Homepage
-            
+            {data.map(d => <div key={d.name}>{d.name}</div>)}
         </div>
     );
 }
