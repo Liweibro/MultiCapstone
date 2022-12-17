@@ -4,6 +4,8 @@ import {Accordion, Button, Badge, Container, Row, Col, Card, Nav, Navbar} from '
 import '../all.css'
 import images from '../images/pexels-chan-walrus-958545.jpg';
 
+import { useEffect, useState } from 'react';
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -40,8 +42,14 @@ async function getres(db) {
   return resList;
 }
 
-function Restaurant() {
-  console.log(getres(db))
+function Homepage() {
+  console.log(getres(db));
+  const [resdata, setresData] = useState([]);
+
+  useEffect(() => {
+    getres(db).then(res => setresData(res));
+  }, []);
+  
   return (
     <Container>
           <Row style={{"height":100}}></Row>
@@ -50,50 +58,26 @@ function Restaurant() {
             <Col></Col>
 
             <Col xs={9}>
-              <>
-                <Card>
-                  <Link to="/ordermeal"><Card.Img variant="top" src={images}/></Link>
-                  <Card.Body>
-                    <Card.Text>
-                      餐廳名稱
-                    </Card.Text>
-                    
-                    <Accordion defaultActiveKey="1">
-                      <Accordion.Item eventKey="0">
-                        <Accordion.Header>
-                          <Badge pill bg=" " text="dark">
-                            距離 5 KM
-                          </Badge>{' '}
-                          <Badge pill bg=" " text="dark">
-                            價格 200 NT
-                          </Badge>
-                        </Accordion.Header>
-                        <Accordion.Body>
-                          <Card className="text-center">
-                            <Card.Header>由 0816148 發起</Card.Header>
-                            <Card.Body>
-                              <Button variant="dark">一起拼單 GO</Button>
-                            </Card.Body>
-                            <Card.Footer className="text-muted">在 20 分鐘後送出訂單</Card.Footer>
-                          </Card>
-
-                          <br></br>
-
-                          <Card className="text-center">
-                            <Card.Header>由 0816148 發起</Card.Header>
-                            <Card.Body>
-                              <Button variant="dark">一起拼單 GO</Button>
-                            </Card.Body>
-                            <Card.Footer className="text-muted">在 20 分鐘後送出訂單</Card.Footer>
-                          </Card>
-                        </Accordion.Body>
-                      </Accordion.Item>
-                    </Accordion>
-
-                  </Card.Body>
-                </Card>
-                <br/>
-              </>
+              {resdata.map(rd => <div key={rd.name}>
+                
+                  <Card>
+                    <Link to="/ordermeal"><Card.Img variant="top" src={images}/></Link>
+                    <Card.Body>
+                      <Card.Text>
+                        {rd.name}{' '}
+                        <Badge pill bg="light" text="dark">
+                          0
+                        </Badge>
+                        <br/>
+                        <Badge pill bg=" " text="dark">
+                          平均價格 {rd.adv_price}NT
+                        </Badge>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                  <br/>
+              </div>)}
+              
             </Col>
 
             <Col></Col>
@@ -102,47 +86,47 @@ function Restaurant() {
           <Row style={{"height":100}}></Row>
           <Navbar bg="dark" variant="dark" fixed="bottom">
             <Nav>
-            
-            <Nav.Link href="#search">
-              <div className="bnav_item"><i class="bi bi-search"></i></div>
-              <div className="bnav_word">Search</div> 
-            </Nav.Link>
 
-            <Link to='/joinorder'>
-            <Nav.Link href="#together">
-              <div className="bnav_item"><i class="bi bi-card-list"></i></div>
-              <div className="bnav_word">Together</div>
-            </Nav.Link>
-            </Link>
+              <Nav.Link href="#search">
+                <div className="bnav_item"><i class="bi bi-search"></i></div>
+                <div className="bnav_word">Search</div> 
+              </Nav.Link>
 
-            <Link to={'/MultiCapstone'}>
-            <Nav.Link href="#home">
-              <div className="bnav_item"><i class="bi bi-house"></i></div>
-              <div className="bnav_word">Home</div>
-            </Nav.Link>
-            </Link>
+              <Link to='/joinorder'>
+              <Nav.Link href="#together">
+                <div className="bnav_item"><i class="bi bi-card-list"></i></div>
+                <div className="bnav_word">Together</div>
+              </Nav.Link>
+              </Link>
 
-            <Link to="/myorder">
-            <Nav.Link href="#order">
-              <div className="bnav_item"><i class="bi bi-bag"></i></div>
-              <div className="bnav_word">Order</div>
-            </Nav.Link>
-            </Link>
+              <Link to={'/MultiCapstone'}>
+              <Nav.Link href="#home">
+                <div className="bnav_item"><i class="bi bi-house"></i></div>
+                <div className="bnav_word">Home</div>
+              </Nav.Link>
+              </Link>
 
-            <Link to ='/profile'>
-            <Nav.Link href="#account">
-              <div className="bnav_item"><i class="bi bi-person"></i></div>
-              <div className="bnav_word">Account</div>
-            </Nav.Link>
-            </Link>
-          </Nav>
+              <Link to="/myorder">
+              <Nav.Link href="#order">
+                <div className="bnav_item"><i class="bi bi-bag"></i></div>
+                <div className="bnav_word">Order</div>
+              </Nav.Link>
+              </Link>
+
+              <Link to ='/profile'>
+              <Nav.Link href="#account">
+                <div className="bnav_item"><i class="bi bi-person"></i></div>
+                <div className="bnav_word">Account</div>
+              </Nav.Link>
+              </Link>
+            </Nav>
         
           </Navbar>
     </Container>
   );
 }
 
-export default Restaurant;
+export default Homepage;
 // // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
