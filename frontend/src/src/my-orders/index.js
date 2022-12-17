@@ -23,8 +23,45 @@ import { useState, useEffect } from "react";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCPlp4TV4z7BZP7g--N_mjUMVhnhHqihyc",
+  authDomain: "titanium-scope-316117.firebaseapp.com",
+  databaseURL: "https://titanium-scope-316117-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "titanium-scope-316117",
+  storageBucket: "titanium-scope-316117.appspot.com",
+  messagingSenderId: "784497199765",
+  appId: "1:784497199765:web:5dfd21c5c43ff1299d699c",
+  measurementId: "G-JP3967E539"
+};
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+async function getorder(db) {
+  const ordersCol = collection(db, 'order');
+  const orderSnapshot = await getDocs(ordersCol);
+  const orderList = orderSnapshot.docs.map(doc => doc.data());
+  return orderList;
+}
+async function getres(db) {
+    const resCol = collection(db, 'restaurant');
+    const resSnapshot = await getDocs(resCol);
+    
+    const resList = resSnapshot.docs.map(doc => doc.data());
+    
+    return resList;
+}
 
 export default function BasicGrid() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+      getorder(db).then(order => setData(order));
+  }, []);
+  console.log(getorder(db))
   return (
     <Grid container direction={"column"}>
       <Grid container className="top_nav">
@@ -76,15 +113,26 @@ export default function BasicGrid() {
       <Grid container direction="column">
         <br />
         <br />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+        {data.map(d => 
+          <button className="group_button" key={d.name}>
+            
+              <Grid container>
+                <Grid xs={3}>
+                  <div className="user_image">
+                    <Image
+                      src=
+                      "https://media.geeksforgeeks.org/wp-content/uploads/20210425000233/test-300x297.png"
+                      roundedCircle width="70"
+                    />
+                  </div>
+                </Grid>
+                <Grid xs={9} className={"user_name"}>
+                  &ensp;{d.participant[0].username}
+                </Grid>
+              </Grid>
+            
+          </button>
+        )}
       </Grid>
 
       <Navbar bg="dark" variant="dark" fixed="bottom">
@@ -97,28 +145,28 @@ export default function BasicGrid() {
 
             <Link to='/joinorder'>
             <Nav.Link href="#together">
-              <div><i class="bi bi-card-list"></i></div>
+              <div className="bnav_item"><i class="bi bi-card-list"></i></div>
               <div className="bnav_word">Together</div>
             </Nav.Link>
             </Link>
 
-            <Link to={'/MultiCapstone'}>
+            <Link to={'/'}>
             <Nav.Link href="#home">
-              <div><i class="bi bi-house"></i></div>
+              <div className="bnav_item"><i class="bi bi-house"></i></div>
               <div className="bnav_word">Home</div>
             </Nav.Link>
             </Link>
 
             <Link to="/myorder">
             <Nav.Link href="#order">
-              <div><i class="bi bi-bag"></i></div>
+              <div className="bnav_item"><i class="bi bi-bag"></i></div>
               <div className="bnav_word">Order</div>
             </Nav.Link>
             </Link>
 
             <Link to ='/profile'>
             <Nav.Link href="#account">
-              <div><i class="bi bi-person"></i></div>
+              <div className="bnav_item"><i class="bi bi-person"></i></div>
               <div className="bnav_word">Account</div>
             </Nav.Link>
             </Link>
@@ -133,38 +181,3 @@ export default function BasicGrid() {
     </Grid>
   );
 }
-/*
-<svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        fill="currentColor"
-                        class="bi bi-arrow-bar-left"
-                        viewBox="-2 -2 16 16"
-                    >
-                    <path
-                    fill-rule="evenodd"
-                    d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z"
-                    />
-                    </svg>
-                    */
-
-/*
-<Grid xs={4} display="flex" justifyContent="center" alignItems="center">
-    <button className="head" style={{ fontSize: 21 }}>未送出</button>
-</Grid>
-*/
-/*
-<div className="fixed">
-          <button className="fixedtest">&ensp;</button>
-        </div>
-        <Grid xs={4}>
-          <button className="head">&ensp;未送出&ensp;</button>
-        </Grid>
-        <Grid xs={4}>
-          <button className="head">&ensp;已送出&ensp;</button>
-        </Grid>
-        <Grid xs={4}>
-          <button className="head">&ensp;已完成&ensp;</button>
-        </Grid>
-        */
