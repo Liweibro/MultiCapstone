@@ -25,9 +25,11 @@
   background-color: #828282;
   border: none;
 }
-.mygroup_name {
+.user_name {
   font-size: 25px;
-  padding: 15px 0px 0px 0px;
+  padding: 15px 0px 0px 10px;
+  display: flex;
+  align-items: center
 }
 
 .fixed {
@@ -48,15 +50,18 @@
   position: fixed;
 }
 
-.group_image {
-  padding: 50px;
-  width: 10%;
+.user_image {
+  padding: 10px 5px;
 }
 
 .bnav_item {
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
 .bnav_word {
   font-size: 10px;
+  display: flex;
+  align-items: center;
 }
