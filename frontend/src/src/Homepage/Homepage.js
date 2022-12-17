@@ -115,7 +115,7 @@ function Restaurant() {
               </Nav.Link>
               </Link>
 
-              <Link to={'/'}>
+              <Link to={'/MultiCapstone'}>
               <Nav.Link href="#home">
                 <div><i class="bi bi-house"></i></div>
                 <div className="bnav_word">Home</div>
