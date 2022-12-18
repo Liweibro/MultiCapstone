@@ -9,7 +9,7 @@
     border: none;
     font-size: 24px;
     font-weight: bold;
-    border-radius: 100;
+    border-radius: 3%;
 }
 #btn-second:hover,
 #btn-second:focus,
