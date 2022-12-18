@@ -54,6 +54,7 @@ div.UserBox {
     background-color: #F5F5F5;
     height: 380px;
     margin: 0%;
+    overflow: scroll;
 }
 
 .bottom-container > .row {
