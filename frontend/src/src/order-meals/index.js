@@ -11,14 +11,55 @@ import { useState, useEffect } from "react";
 import Restaurant from "./components/Restaurant";
 import Star from "./components/Star";
 import {useLocation} from 'react-router-dom';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import{StarFill} from "react-bootstrap-icons";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCPlp4TV4z7BZP7g--N_mjUMVhnhHqihyc",
+  authDomain: "titanium-scope-316117.firebaseapp.com",
+  databaseURL: "https://titanium-scope-316117-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "titanium-scope-316117",
+  storageBucket: "titanium-scope-316117.appspot.com",
+  messagingSenderId: "784497199765",
+  appId: "1:784497199765:web:5dfd21c5c43ff1299d699c",
+  measurementId: "G-JP3967E539"
+};
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+async function getorder(db) {
+  const ordersCol = collection(db, 'order');
+  const orderSnapshot = await getDocs(ordersCol);
+  const orderList = orderSnapshot.docs.map(doc => doc.data());
+  return orderList;
+}
+async function getres(db) {
+    const resCol = collection(db, 'restaurant');
+    const resSnapshot = await getDocs(resCol);
+    
+    const resList = resSnapshot.docs.map(doc => doc.data());
+    
+    return resList;
+}
 
 export default function BasicGrid() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+      getres(db).then(res => setData(res));
+  }, []);
+  console.log(getres(db))
   const location = useLocation()
   console.log(location.state.order)
   const d = location.state.order;
 
   return (
+    
     <Grid container direction="column">
+      
+      
       <Grid container>
         <div className="fixed">
           <button className="fixedhead">&ensp;</button>
@@ -35,31 +76,28 @@ export default function BasicGrid() {
           <br />
           <br />
           <br />
-          <Restaurant></Restaurant>
+          <div className="res_name">&ensp;{d.rd.name}</div>
         </Grid>
         <Grid xs={2}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="60"
-            height="60"
-            fill="currentColor"
-            class="bi bi-star-fill"
-            viewBox="-10 -1 40 40"
-          >
-            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-          </svg>
+          &ensp;&ensp;&ensp;<StarFill size={25}/>
         </Grid>
         <Grid xs={10} className={"star"}>
-          <Star />
+          <div>{d.rd.star}</div>
         </Grid>
       </Grid>
       <Grid container>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
+        {d.rd.menu.map(m =>
+          <button className="meal_button" key={d.rd.menu}>
+            <Grid container>
+              <Grid xs={9} className={"meal_name"}>
+                <div>{m.element}</div>
+              </Grid>
+              <Grid xs={3} className={"price"}>
+                <div>{m.price}</div>
+              </Grid>
+            </Grid>
+          </button>
+        )}
       </Grid>
       <br />
       <br />
@@ -70,6 +108,9 @@ export default function BasicGrid() {
           <Edit />
         </Grid>
       </Grid>
+    
+    
     </Grid>
+    
   );
 }
