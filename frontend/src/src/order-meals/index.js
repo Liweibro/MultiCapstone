@@ -10,8 +10,13 @@ import "./index.css";
 import { useState, useEffect } from "react";
 import Restaurant from "./components/Restaurant";
 import Star from "./components/Star";
+import {useLocation} from 'react-router-dom';
 
 export default function BasicGrid() {
+  const location = useLocation()
+  console.log(location.state.order)
+  const d = location.state.order;
+
   return (
     <Grid container direction="column">
       <Grid container>
