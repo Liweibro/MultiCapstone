@@ -43,7 +43,7 @@ async function getres(db) {
 }
 
 function Homepage() {
-  console.log(getres(db));
+  console.log(getorder(db));
   const [resdata, setresData] = useState([]);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function Homepage() {
               {resdata.map(rd => <div key={rd.name}>
                 
                   <Card>
-                    <Link to="/ordermeal"><Card.Img variant="top" src={images}/></Link>
+                    <Link to="/ordermeal" state={{ order:{rd} }}><Card.Img variant="top" src={images}/></Link>
                     <Card.Body>
                       <Card.Text>
                         {rd.name}{' '}
