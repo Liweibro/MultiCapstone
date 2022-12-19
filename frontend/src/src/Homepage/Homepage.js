@@ -49,7 +49,7 @@ function Homepage() {
   useEffect(() => {
     getres(db).then(res => setresData(res));
   }, []);
-  
+
   return (
     <Container>
           <Row style={{"height":100}}></Row>
@@ -65,6 +65,7 @@ function Homepage() {
                     <Card.Body>
                       <Card.Text>
                         {rd.name}{' '}
+                        
                         <Badge pill bg="light" text="dark">
                           0
                         </Badge>
