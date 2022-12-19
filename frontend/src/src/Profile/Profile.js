@@ -24,15 +24,6 @@ function Profile() {
     return(
         <Container className='wrapper_container'>
             <Row>
-                {/* <Card className='back'>
-                    
-                    <Card.Title className='title'>
-                    
-                        <img   src={logo} style={{width: 80,height:80 ,borderRadius:40 ,borderColor:'black'}} alt="profile"></img>
-                        unefjkn
-                    </Card.Title>
-                
-                </Card> */}
                 <div className='back'>
                     <div className='arrows'>
                         <BiChevronLeftCircle/>
@@ -52,9 +43,10 @@ function Profile() {
                             </div>
                         </div>
                         <div className='half bottom'>
+                            <div>good morning everyone my name is li wei bro</div>
+                            
                             <div>
-                                <HiChat style={{width:20}}/>
-                                <div>100</div>
+                                <HiChat style={{width:20}}/> 100
                             </div>
                             <div></div>
                             <div></div>
@@ -63,18 +55,14 @@ function Profile() {
                 </div>
 
             </Row>
-            
-            <Row>
+            <Row style={{"height":300}}></Row>
+            {/*<Row>
                 <Col xs={1}></Col>
                 <Col xs={6}>
-                    <Card style={{border:'white'}}>
-                        <Card.Text>
-                            good morning everyone my name is li wei bro
-                        </Card.Text>
-                        </Card>
+                    good morning everyone my name is li wei bro
                 </Col>
                  
-            </Row>
+            </Row>*/}
             <Row>
                 <br>
                 </br>
@@ -83,12 +71,11 @@ function Profile() {
                 <Col xs={1}></Col>
                 <Col xs={8}>
                     <Card style={{width:300}} >
-                        <Card.Img variant="top"  style={{height:200}} src="https://picsum.photos/1920/1200?random=1" />
+                    <Card.Img variant="top"  style={{height:200}} src="https://picsum.photos/1920/1200?random=1" />
                         <Card.Body>
-                            <Card.Title>Card Title</Card.Title>
+                            <Card.Title>123</Card.Title>
                             <Card.Text>
-                            Some quick example text to build on the card title and make up the
-                            bulk of the card's content.
+                            123
                             </Card.Text>
             
                         </Card.Body>
