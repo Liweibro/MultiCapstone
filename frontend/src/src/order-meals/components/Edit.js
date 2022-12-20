@@ -8,7 +8,7 @@ import PartOrderData from '../../OrderData/PartOrder'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -131,6 +131,36 @@ function OrderSetting(props) {
       placedOpened(false);
   }
 
+  const [under_bound, SetUnder_bound] = useState(1);
+  const [upper_bound, SetUp_bound] = useState(1);
+  const [name, SetName] = useState("");
+  const [dst, SetDst] = useState("研三舍");
+  const [autosend, SetAutosend] = useState(false);
+  const HandleChange = () => {
+    SetAutosend(!autosend);
+  }
+  const [sendtime, SetSendTime] = useState("Tue Dec 27 2022 14:00:00 GMT+800");
+//   console.log(name);
+
+    const select_data = {
+        autosend: {autosend},
+        autosend_time: new Date({sendtime}),
+        dest: {dst},
+        // dest_geo: new GeoPoint(24.784111053169237, 120.99630264166379).toJSON(),
+        human_lowerbound: {under_bound},
+        human_upperbound: {upper_bound},
+        restaurant_name: "鴉片粉圓",
+        participant: [{ item: ["鴉片粉圓"], total: 55 ,username:{name}}],
+        id: Math.floor(Math.random() * 2839493).toString(),
+        order_num: 1,
+        tag: ["下午茶" ,"冰品"],
+        sum_price: 55,
+    }
+    async function addData(db, select_data) {
+        const groceriesColRef = collection(db, 'order');
+        return addDoc(groceriesColRef, select_data).then(docref => console.log("successfully")).catch(error => console.log(error));
+    }
+
   return (
       <>
       <div>
@@ -147,50 +177,51 @@ function OrderSetting(props) {
                           <div style={{ fontSize: "20px", }}>
                               人數：
                           </div>
-                          <div>
-                              <Dropdown>
-                                  <Dropdown.Toggle id="dropdown-autoclose-true" />
-
-                                  <Dropdown.Menu>
-                                      <Dropdown.Item href="#">1</Dropdown.Item>
-                                      <Dropdown.Item href="#">2</Dropdown.Item>
-                                      <Dropdown.Item href="#">3</Dropdown.Item>
-                                  </Dropdown.Menu>
-                              </Dropdown>
+                          <div className="bound_wrapper">
+                            <select id="under_bound form-control" onfocus='this.size=5;' onblur='this.size=1;' value={under_bound}
+                                onChange={(e) => SetUnder_bound(e.target.value)}>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+                                <option value={7}>7</option>
+                                <option value={8}>8</option>
+                                <option value={9}>9</option>
+                                <option value={10}>10</option>
+                            </select>
                           </div>
                           <div className="col-2">~</div>
                           <div>
-                              <Dropdown>
-                                  <Dropdown.Toggle id="dropdown-autoclose-true" />
-
-                                  <Dropdown.Menu>
-                                      <Dropdown.Item href="#">1</Dropdown.Item>
-                                      <Dropdown.Item href="#">2</Dropdown.Item>
-                                      <Dropdown.Item href="#">3</Dropdown.Item>
-                                  </Dropdown.Menu>
-                              </Dropdown>
+                          <select id="upper_bound form-control" onfocus='this.size=5;' onblur='this.size=1;' value={upper_bound}
+                                onChange={(e) => SetUp_bound(e.target.value)}>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+                                <option value={7}>7</option>
+                                <option value={8}>8</option>
+                                <option value={9}>9</option>
+                                <option value={10}>10</option>
+                            </select>
                           </div>
                           <div className="col-2" style={{ fontSize: "20px", }}>
                               人
                           </div>
                       </div>
                       <div className="row justify-content-center row-cols-auto align-items-center" >  {/* 推薦人數 */}
-                          <div style={{ fontSize: "14px", }}>
-                              （推薦
-                          </div>
-                          <div style={{ fontSize: "14px", }}>
-                              <Dropdown>
-                                  <Dropdown.Toggle id="dropdown-autoclose-true" />
-
-                                  <Dropdown.Menu>
-                                      <Dropdown.Item href="#">1</Dropdown.Item>
-                                      <Dropdown.Item href="#">2</Dropdown.Item>
-                                      <Dropdown.Item href="#">3</Dropdown.Item>
-                                  </Dropdown.Menu>
-                              </Dropdown>
-                          </div>
-                          <div style={{ fontSize: "14px", }}>
-                              人）
+                            <div for="name" className="col-form-label" style={{ fontSize: "20px", marginRight:"15px" }}>暱稱</div>
+                              <div className="col-4 align-self-center">
+                                  <input type="text" className="form-control" id="name" style={{ backgroundColor: "#d9d9d9", height: "20px" }} 
+                                  value={name} onChange={(e) => SetName(e.target.value)} />
+                              </div>
+                      </div>
+                      <div className="row justify-content-center row-cols-auto align-items-center" >  {/* 推薦人數 */}
+                          <div style={{ fontSize: "16px", }}>
+                              （推薦 5 人）
                           </div>
                       </div>
 
@@ -198,7 +229,14 @@ function OrderSetting(props) {
                       <div className="row row-cols-auto"> {/* 取餐地點 */}
                           <label for="送達地點" className="col-form-label twenty">送達地點</label>
                           <div className="col-6 align-self-center">
-                              <input type="text" className="form-control" id="送達地點" style={{ backgroundColor: "#d9d9d9", height: "20px" }} placeholder="" />
+                              {/* <input type="text" className="form-control" id="送達地點" style={{ backgroundColor: "#d9d9d9", height: "20px" }} placeholder="" /> */}
+                              <select id="dst form-control" onfocus='this.size=5;' onblur='this.size=1;' value={dst}
+                                onChange={(e) => SetDst(e.target.value)} style={{width:"200px"}}>
+                                <option value={"研三舍"}>研三舍</option>
+                                <option value={"女二舍"}>女二舍</option>
+                                <option value={"竹軒"}>竹軒</option>
+                                <option value={"十三舍"}>十三舍</option>
+                            </select>
                           </div>
                       </div>
                       {/* <br></br> */}
@@ -223,7 +261,8 @@ function OrderSetting(props) {
                       <div> {/* 自動送出 */}
                           <div className="row row-cols-auto">
                               <div className="col-form-check align-self-center">
-                                  <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" style={{transform:"scale(1.2)"}} />
+                                  <input className="form-check-input" type="checkbox" id="flexCheckDefault" style={{transform:"scale(1.2)"}}
+                                         onChange={HandleChange} />
                                   <label className="col-form-check-label twentyfive" for="flexCheckDefault">
                                       自動送出
                                   </label>
@@ -232,15 +271,13 @@ function OrderSetting(props) {
                           <div className="row row-cols-auto">
                               <label for="自動送出時間" className="col-form-label twenty">自動送出時間</label>
                               <div className="col-4 align-self-center" style={{ fontSize: "20px", }}>
-                                  <Dropdown>
-                                      <Dropdown.Toggle id="dropdown-autoclose-true" className='time' />
-
-                                      <Dropdown.Menu className='time'>
-                                          <Dropdown.Item href="#" className='time'>17:15</Dropdown.Item>
-                                          <Dropdown.Item href="#" className='time'>17:30</Dropdown.Item>
-                                          <Dropdown.Item href="#" className='time'>17:45</Dropdown.Item>
-                                      </Dropdown.Menu>
-                                  </Dropdown>
+                                <select id="sendtime form-control" onfocus='this.size=5;' onblur='this.size=1;' value={sendtime}
+                                    onChange={(e) => SetSendTime(e.target.value)} style={{width:"120px"}}>
+                                    <option value={"Tue Dec 27 2022 14:00:00 GMT+800"}>14 : 00</option>
+                                    <option value={"Tue Dec 27 2022 14:30:00 GMT+800"}>14 : 30</option>
+                                    <option value={"Tue Dec 27 2022 15:00:00 GMT+800"}>15 : 00</option>
+                                    <option value={"Tue Dec 27 2022 15:30:00 GMT+800"}>15 : 30</option>
+                                </select>
                               </div>
                           </div>
                       </div>
