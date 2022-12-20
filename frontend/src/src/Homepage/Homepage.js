@@ -38,7 +38,7 @@ async function getorder(db) {
 async function getres(db) {
   const resCol = collection(db, 'restaurant');
   const resSnapshot = await getDocs(resCol);
-  const resList = resSnapshot.docs.map(doc => doc.data());
+  const resList = resSnapshot.docs.map(doc => [doc.id, doc.data()]);
   return resList;
 }
 
@@ -58,20 +58,20 @@ function Homepage() {
             <Col></Col>
 
             <Col xs={9}>
-              {resdata.map(rd => <div key={rd.name}>
+              {resdata.map(rd => <div key={rd[1].name}>
                 
                   <Card>
                     <Link to="/ordermeal" state={{ order:{rd} }}><Card.Img variant="top" src={images}/></Link>
                     <Card.Body>
                       <Card.Text>
-                        {rd.name}{' '}
+                        {rd[1].name}{' '}
                         
                         <Badge pill bg="light" text="dark">
                           0
                         </Badge>
                         <br/>
                         <Badge pill bg=" " text="dark">
-                          平均價格 {rd.adv_price}NT
+                          平均價格 {rd[1].adv_price}NT
                         </Badge>
                       </Card.Text>
                     </Card.Body>
