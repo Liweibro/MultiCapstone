@@ -7,12 +7,13 @@ import Orderlist from './Orderlist/Orderlist';
 import Profile from './Profile/Profile';
 import PersonalChat from './PersonalChat/PersonalChat';
 import ScoreSlide from './ScoreSlide/ScoreSlide';
-import OrderMeal from './order-meals/index'
-import MyOrder from './my-orders'
-import JoinOrder from './join-order'
-import AllModal from './components/Modals/AllModal'
-import MyOrderData from './OrderData/MyOrder'
-import PartOrderData from './OrderData/PartOrder'
+import OrderMeal from './order-meals/index';
+import MyOrder from './my-orders';
+import JoinOrder from './join-order';
+import AllModal from './components/Modals/AllModal';
+import MyOrderData from './OrderData/MyOrder';
+import PartOrderData from './OrderData/PartOrder';
+import Map from './Map/Map';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
              <Route element={<AllModal/>} path='/allmodal'></Route>
              <Route element={<MyOrderData/>} path='/myorderdata'></Route>
              <Route element={<PartOrderData/>} path='/partorderdata'></Route> 
+             <Route element={<Map/>} path='/map'></Route> 
       </Routes>
     </div>
   );
