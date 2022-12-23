@@ -10,7 +10,7 @@ import "./index.css";
 import { useState, useEffect } from "react";
 import Restaurant from "./components/Restaurant";
 import Star from "./components/Star";
-import {useLocation} from 'react-router-dom';
+import {useLocation, Link} from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
@@ -45,12 +45,6 @@ async function getres(db) {
 }
 
 export default function BasicGrid() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-      getres(db).then(res => setData(res));
-  }, []);
-  console.log(getres(db))
   const location = useLocation()
   console.log(location.state.order)
   const d = location.state.order;
@@ -105,7 +99,7 @@ export default function BasicGrid() {
       <br />
       <Grid container>
         <Grid xs={12}>
-          <Edit />
+          <Edit res={d.rd}/>
         </Grid>
       </Grid>
     
