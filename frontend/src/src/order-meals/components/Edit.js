@@ -1,7 +1,7 @@
-import {React, useState, useEffect } from "react";
+import {React, useState, useEffect, query, where } from "react";
 import { v4 } from "uuid";
-import { Link } from "react-router-dom";
-import { Button, Modal, Dropdown, Card } from 'react-bootstrap';
+import { Link, useLocation } from "react-router-dom";
+import { Button, Modal,  Card } from 'react-bootstrap';
 import { PlusCircle, XCircle, CheckCircle } from "react-bootstrap-icons";
 import PartOrderData from '../../OrderData/PartOrder'
 
@@ -9,6 +9,7 @@ import PartOrderData from '../../OrderData/PartOrder'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
+import { common } from "@mui/material/colors";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -31,8 +32,7 @@ async function getorder(db) {
   return orderList;
 }
 
-const Edit = ({}) => {
-  // console.log(getorder(db))
+const Edit = (props) => {
   const [chooseID, idOpened] = useState(false);
 
   const showModal = () => {
@@ -48,7 +48,7 @@ const Edit = ({}) => {
         加入購物車
       </button>
     </div>
-    <ChooseID show={chooseID} onHide={hideModal} />
+    <ChooseID show={chooseID} onHide={hideModal} res={props.res}/>
     </>
   );
 };
@@ -60,9 +60,35 @@ function GetTime(props) {
     );
 }
 
-function ChooseID(props) {
-  const [data, setData] = useState([]);
+function Is_Res(props) {
+    var resName = props.res_name;
+    var d = props.order;
 
+    if (resName == d.restaurant_name) {
+        console.log("true")
+        return (
+        <>
+        <Card className="text-center">
+            <Card.Header>由 {d.participant[0].username} 發起</Card.Header>
+            <Card.Body>
+            <Link to="/partorderdata" state={{ order:{d} }}><Button variant="dark">一起拼單 GO</Button></Link>
+            </Card.Body>
+            <Card.Footer className="text-muted">{d.autosend? <GetTime time={d.autosend_time.seconds*1000}/>: "無設定自動送出時間"}</Card.Footer>
+        </Card>
+        <br></br>
+        </>
+        );
+    }
+    else {
+        console.log("false")
+        return;
+    }
+}
+
+function ChooseID(props) {
+//   console.log(props.res)
+
+  const [data, setData] = useState([]);
   useEffect(() => {
       getorder(db).then(res => setData(res));
   }, []);
@@ -75,8 +101,6 @@ function ChooseID(props) {
   const hideModal = () => {
       settingOpened(false);
   }
-
-  // {data.map(d => <div key={d.name}></div>)}
 
   return (
       <>
@@ -97,16 +121,7 @@ function ChooseID(props) {
               
               <div style={{height: "200px", overflow: "scroll", backgroundColor: "#d3d3d3", padding:"1.4em 0.2em", marginBottom:"1em" }}>
               {data.map(d => <div key={d.name}>
-                {/* 當前訂單-楚泱card */}
-                <Card className="text-center">
-                  <Card.Header>由 {d.participant[0].username} 發起</Card.Header>
-                  <Card.Body>
-                    <Link to="/partorderdata" state={{ order:{d} }}><Button variant="dark">一起拼單 GO</Button></Link>
-                  </Card.Body>
-                  <Card.Footer className="text-muted">{d.autosend? <GetTime time={d.autosend_time.seconds*1000}/>: "無設定自動送出時間"}</Card.Footer>
-                </Card>
-
-                <br></br>
+                <Is_Res res_name={props.res.name} order={d}/>
               </div>)}
               </div>
 
