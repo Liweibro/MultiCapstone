@@ -12,7 +12,7 @@ import {
   NavDropdown,
   Form,
   FormControl,
-  Button,
+  Button
 } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -114,7 +114,7 @@ export default function BasicGrid() {
         <br />
         <br />
         {data.map(d => 
-          <button className="group_button" key={d.name}>
+          <Link to="/MyOrderData" state={{ order:{d} }}><button className="group_button" key={d.name}>
             
               <Grid container>
                 <Grid xs={3}>
@@ -131,7 +131,7 @@ export default function BasicGrid() {
                 </Grid>
               </Grid>
             
-          </button>
+          </button></Link>
         )}
       </Grid>
 
