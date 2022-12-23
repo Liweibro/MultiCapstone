@@ -24,6 +24,8 @@
   text-align: left;
   background-color: #828282;
   border: none;
+  min-width: 80%;
+  justify-content: center;
 }
 .user_name {
   font-size: 25px;
