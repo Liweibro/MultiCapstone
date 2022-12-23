@@ -68,13 +68,13 @@ function PartOrder() {
                     <div class="top-container"> {/* 上方 */}
                         <div class="row row-cols-auto justify-content-center">
                             <div class="col-3 text-right">人數：</div>
-                            <div className='NumberBox'>3</div>
+                            <div className='NumberBox'>{d.d.human_lowerbound}</div>
                             <div class="col-1">~</div>
-                            <div className='NumberBox'>{d.d.human_limit}</div>
+                            <div className='NumberBox'>{d.d.human_upperbound}</div>
                         </div>
                         <div class="row row-cols-auto justify-content-center">
                             <div class="col-4">送餐時間：</div>
-                            <div class="col-6 TextBox"><GetTime time={d.d.autosend_time.seconds*1000}/></div>
+                            <div class="col-6 TextBox">{d.d.autosend?<GetTime time={d.d.autosend_time.seconds*1000}/>:"未設定自動送出"}</div>
                         </div>
                         <div class="row row-cols-auto justify-content-center" style={{ marginBottom: "4%" }}>
                             <div class="col-4">取餐地點：</div>
@@ -99,8 +99,9 @@ function PartOrder() {
                         
                         {counters.map((_, index) => ( 
                         <div key={index} class="row justify-content-center">
-                            <div class="col-10 UserBox" >
-                                {/* 加頭像 & 評價 */}
+                            <div class="col-10 UserBox" style={{textAlign:"center"}}>
+                                {d.d.participant[index].username} <br></br>
+                                {d.d.participant[index].total}元
                             </div>
                         </div>))}
                         
