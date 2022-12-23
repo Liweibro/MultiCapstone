@@ -65,7 +65,7 @@ function Is_Res(props) {
     var d = props.order;
 
     if (resName == d.restaurant_name) {
-        console.log("true")
+//         console.log("true")
         return (
         <>
         <Card className="text-center">
@@ -80,7 +80,7 @@ function Is_Res(props) {
         );
     }
     else {
-        console.log("false")
+//         console.log("false")
         return;
     }
 }
