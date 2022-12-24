@@ -42,15 +42,31 @@ const Edit = (props) => {
       idOpened(false);
   }
 
-  return (
-    <><div>
-      <button className="buy" style={{ fontSize: 22 }} onClick={showModal}>
-        加入購物車
-      </button>
-    </div>
-    <ChooseID show={chooseID} onHide={hideModal} res={props.res}/>
-    </>
-  );
+  if (props.source == "/join-orders")
+  {
+    return (
+        <><div>
+        <button className="buy" style={{ fontSize: 22 }} onClick={showModal}>
+            加入購物車
+        </button>
+        </div>
+        <OrderHasBeenPart show={chooseID} onHide={hideModal} res={props.res}/>
+        </>
+    );
+  }
+
+  else 
+  {
+    return (
+        <><div>
+        <button className="buy" style={{ fontSize: 22 }} onClick={showModal}>
+            加入購物車
+        </button>
+        </div>
+        <ChooseID show={chooseID} onHide={hideModal} res={props.res}/>
+        </>
+    );
+  }
 };
 
 function GetTime(props) {
@@ -65,13 +81,12 @@ function Is_Res(props) {
     var d = props.order;
 
     if (resName == d.restaurant_name) {
-//         console.log("true")
         return (
         <>
         <Card className="text-center">
             <Card.Header>由 {d.participant[0].username} 發起</Card.Header>
             <Card.Body>
-            <Link to="/partorderdata" state={{ order:{d} }}><Button variant="dark">一起拼單 GO</Button></Link>
+            <Link to="/partorderdata" state={{ order:{d}, source:"/Edit" }}><Button variant="dark">一起拼單 GO</Button></Link>
             </Card.Body>
             <Card.Footer className="text-muted">{d.autosend? <GetTime time={d.autosend_time.seconds*1000}/>: "無設定自動送出時間"}</Card.Footer>
         </Card>
@@ -80,7 +95,6 @@ function Is_Res(props) {
         );
     }
     else {
-//         console.log("false")
         return;
     }
 }
@@ -347,6 +361,38 @@ function OrderHasBeenPlaced(props) {
           </Modal.Footer>
       </Modal>
   );
+}
+
+function OrderHasBeenPart(props) {
+    return (
+        <Modal 
+          {...props} 
+          dialogClassName="modal-width-center"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+            <Modal.Header className='constheight' closeButton />
+            <Modal.Body className='a'>
+                <div for="name">
+                    暱稱
+                    <input type="text" id="name" 
+                    style={{ backgroundColor: "#d9d9d9", height: "25px" , width:"40%", marginLeft:"4%", border:"none", borderRadius:"4%", padding:"2% 3%", fontSize:"20px"}} />
+                </div>
+                <br></br>
+                訂單已參與！<br></br>
+                請前往「我的訂單」查看詳細資訊！
+            </Modal.Body>
+            <Modal.Footer className='a' style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            }}
+            >
+                <Link to="/myorder"><Button onClick={props.onHide} id="btn-second"
+                >確認前往</Button></Link>
+            </Modal.Footer>
+        </Modal>
+    );
 }
 
 export default Edit;
