@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Accordion, Button, Badge, Container, Row, Col, Card, Nav, Navbar} from 'react-bootstrap';
+import { Badge, Container, Row, Col, Card, Navbar } from 'react-bootstrap';
+import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
 
-import '../all.css'
+import './Homepage.css'
 import images from '../images/pexels-chan-walrus-958545.jpg';
 
 import { useEffect, useState } from 'react';
@@ -51,14 +52,17 @@ function Homepage() {
   }, []);
 
   return (
+    <>
     <Container>
-          <Row style={{"height":100}}></Row>
+          <Row style={{"height":50}}></Row>
           
           <Row>
             <Col>
-              some functions
+              {/* some functions
+              <br/>
               <Link to="/tag">tag</Link>
-              <Link to="/map">map</Link>
+              <br/>
+              <Link to="/map">map</Link> */}
             </Col>
 
             <Col xs={9}>
@@ -89,45 +93,48 @@ function Homepage() {
           </Row>
 
           <Row style={{"height":100}}></Row>
-          <Navbar bg="dark" variant="dark" fixed="bottom">
-            <Nav>
-
-              <Nav.Link href="#search">
-                <div className="bnav_item"><i class="bi bi-search"></i></div>
-                <div className="bnav_word">Search</div> 
-              </Nav.Link>
-
-              <Link to='/joinorder'>
-              <Nav.Link href="#together">
-                <div className="bnav_item"><i class="bi bi-card-list"></i></div>
-                <div className="bnav_word">Together</div>
-              </Nav.Link>
-              </Link>
-
-              <Link to={'/MultiCapstone'}>
-              <Nav.Link href="#home">
-                <div className="bnav_item"><i class="bi bi-house"></i></div>
-                <div className="bnav_word">Home</div>
-              </Nav.Link>
-              </Link>
-
-              <Link to="/myorder">
-              <Nav.Link href="#order">
-                <div className="bnav_item"><i class="bi bi-bag"></i></div>
-                <div className="bnav_word">Order</div>
-              </Nav.Link>
-              </Link>
-
-              <Link to ='/profile'>
-              <Nav.Link href="#account">
-                <div className="bnav_item"><i class="bi bi-person"></i></div>
-                <div className="bnav_word">Account</div>
-              </Nav.Link>
-              </Link>
-            </Nav>
-        
-          </Navbar>
     </Container>
+
+    <div className='navbar'>
+      <ul>
+        <span className = "icon"> <BiSearch/> </span>
+        <br/>
+        <span className = "text">Search</span>
+      </ul>
+
+      <Link to='/joinorder'>
+        <ul>
+          <span className = "icon"> <BiGroup/> </span>
+          <br/>
+          <span className="text">Together</span>
+        </ul>
+      </Link>
+
+      <Link to={'/MultiCapstone'}>
+        <ul>
+          <span className = "icon"> <BiHomeAlt/> </span>
+          <br/>
+          <span className="text">Home</span>
+        </ul>
+      </Link>
+
+      <Link to="/myorder">
+        <ul>
+          <span className = "icon"> <BiCart/> </span>
+          <br/>
+          <span className="text">Order</span>
+        </ul>
+      </Link>
+
+      <Link to ='/profile'>
+        <ul>
+          <span className = "icon"> <BiUser/> </span>
+          <br/>
+          <span className="text">Account</span>
+        </ul>
+      </Link>
+  </div>
+  </>
   );
 }
 
