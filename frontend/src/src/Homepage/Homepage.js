@@ -95,43 +95,43 @@ function Homepage() {
           <Row style={{"height":100}}></Row>
     </Container>
 
-    <div className='navbar'>
-      <ul>
-        <span className = "icon"> <BiSearch/> </span>
+    <div className='navbar_container'>
+      <div className='search'>
+        <span className = "nav_icon"> <BiSearch/> </span>
         <br/>
-        <span className = "text">Search</span>
-      </ul>
+        <span className = "nav_text">Search</span>
+      </div>
 
       <Link to='/joinorder'>
-        <ul>
-          <span className = "icon"> <BiGroup/> </span>
+        <div className='together'>
+          <span className = "nav_icon"> <BiGroup/> </span>
           <br/>
-          <span className="text">Together</span>
-        </ul>
+          <span className="nav_text">Together</span>
+        </div>
       </Link>
 
       <Link to={'/MultiCapstone'}>
-        <ul>
-          <span className = "icon"> <BiHomeAlt/> </span>
+        <div className='home'>
+          <span className = "nav_icon"> <BiHomeAlt/> </span>
           <br/>
-          <span className="text">Home</span>
-        </ul>
+          <span className="nav_text">Home</span>
+        </div>
       </Link>
 
       <Link to="/myorder">
-        <ul>
-          <span className = "icon"> <BiCart/> </span>
+        <div className='order'>
+          <span className = "nav_icon"> <BiCart/> </span>
           <br/>
-          <span className="text">Order</span>
-        </ul>
+          <span className="nav_text">Order</span>
+        </div>
       </Link>
 
       <Link to ='/profile'>
-        <ul>
-          <span className = "icon"> <BiUser/> </span>
+        <div className='account'>
+          <span className = "nav_icon"> <BiUser/> </span>
           <br/>
-          <span className="text">Account</span>
-        </ul>
+          <span className="nav_text">Account</span>
+        </div>
       </Link>
   </div>
   </>
