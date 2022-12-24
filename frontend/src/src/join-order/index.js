@@ -7,6 +7,7 @@ import Fliter from "./components/Fliter";
 import Item from "./components/Item";
 import "./index.css";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import BackButton from "./components/back-button";
 import { initializeApp } from "firebase/app";
@@ -74,7 +75,7 @@ export default function BasicGrid() {
           <br />
         </Grid>
         {data.map(d =>
-          <button className="join_button" key={d.name}>
+          <Link to="/partorderdata" state={{ order:{d}, source:"/join-order" }}><button className="join_button" key={d.name}>
             <Grid container>
               <Grid container>
                 <Grid xs={2} className="group_image">
@@ -108,7 +109,7 @@ export default function BasicGrid() {
                 </Grid>
               </Grid>
             </Grid>
-          </button>
+          </button></Link>
         )}
       </Grid>
     </Grid>
