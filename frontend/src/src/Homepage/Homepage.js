@@ -1,6 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Badge, Container, Row, Col, Card, Navbar } from 'react-bootstrap';
+import { Badge, Container, Row, Col, Card } from 'react-bootstrap';
 import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
+import { AiFillStar, AiFillNotification } from "react-icons/ai";
+import { BsList, BsPersonCircle, BsShieldLockFill, BsPersonPlusFill, BsInfoCircleFill, BsQuestionCircleFill } from "react-icons/bs";
+
+//
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+//
 
 import './Homepage.css'
 import images from '../images/pexels-chan-walrus-958545.jpg';
@@ -43,8 +51,39 @@ async function getres(db) {
   return resList;
 }
 
+function OffCanvasExample({ name, ...props }) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="light" onClick={handleShow} className="me-2">
+        <BsList/>
+      </Button>
+      <Offcanvas show={show} onHide={handleClose} {...props} style={{"width":300}}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title><BsPersonCircle style={{"padding":20 ,"width":100, "height":100}}/>username</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <div className='user_info_text'>
+            <BsShieldLockFill/> 隱私中心
+            <br/>
+            <BsPersonPlusFill/> 邀請朋友
+            <br/>
+            <BsInfoCircleFill/> 會員
+            <br/>
+            <BsQuestionCircleFill/> 幫助
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
+}
+
 function Homepage() {
-  console.log(getorder(db));
+  console.log(getres(db));
   const [resdata, setresData] = useState([]);
 
   useEffect(() => {
@@ -53,8 +92,17 @@ function Homepage() {
 
   return (
     <>
+    <div className='top_container'>
+      <div classname='app_name'>一起拼單GO <AiFillNotification/></div>
+      <div className='user_info'>
+        {['end'].map((placement, idx) => (
+          <OffCanvasExample key={idx} placement={placement} name={placement} />
+        ))}
+      </div>
+    </div>
+
     <Container>
-          <Row style={{"height":50}}></Row>
+          <Row style={{"height":20}}></Row>
           
           <Row>
             <Col>
@@ -75,9 +123,14 @@ function Homepage() {
                         {rd[1].name}{' '}
                         
                         <Badge pill bg="light" text="dark">
-                          0
+                          {rd[1].ord_num}
                         </Badge>
                         <br/>
+                          
+                        <Badge pill bg=" " text="dark">
+                          {rd[1].star} <AiFillStar style={{"height":11, "width":11}}/>
+                        </Badge>
+
                         <Badge pill bg=" " text="dark">
                           平均價格 {rd[1].adv_price}NT
                         </Badge>
