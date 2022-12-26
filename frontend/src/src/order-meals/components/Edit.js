@@ -446,7 +446,7 @@ function OrderSetting(props) {
                   <Button onClick={(event) => {props.onHide() ;showModal(); createOrder(db, props.res[0])}} id="btn-second">
                       <CheckCircle />確認送出
                   </Button>
-                  <Button onClick={(event) => {props.onHide() ;createOrder(db, props.res[0])}}>createOrder</Button>
+//                   <Button onClick={(event) => {props.onHide() ;createOrder(db, props.res[0])}}>createOrder</Button>
               </Modal.Footer>
           </Modal>
       </div>
