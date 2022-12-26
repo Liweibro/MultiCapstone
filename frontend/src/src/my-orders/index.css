@@ -7,14 +7,14 @@
   border-radius: 5px;
   position: fixed;
 }
-.headtest {
+/* .headtest {
   font-size: 25px;
   border: 0;
   text-align: center;
   border-radius: 5px;
+  margin: 1px;
   padding: 0px 10px;
-  color: rgb(253, 253, 253);
-}
+} */
 
 .top_nav {
   background-color: #adadad;
@@ -22,17 +22,21 @@
 
 .group_button {
   margin: 20px 40px;
+  padding: auto;
   text-align: left;
   background-color: #828282;
   border: none;
-  min-width: 80%;
+  width: auto;
   justify-content: center;
+  display: flex;
+  
+  text-decoration: none;
 }
 .user_name {
-  font-size: 25px;
-  padding: 15px 0px 0px 10px;
+  font-size: 20px;
+  padding: 15px;
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .fixed {
@@ -41,6 +45,7 @@
 
 .fixedtest {
   position: fixed;
+  left: 0px;
   width: 100%;
   border: none;
   background-color: #adadad;
@@ -81,7 +86,7 @@ html, body
     height: auto;
 }
 
-.top_container
+/* .top_container
 {
     position: relative;
     width: 100%;
@@ -103,7 +108,7 @@ html, body
 .user_info_text
 {
     padding-left: 30px;
-}
+} */
 
 .navbar_container
 {

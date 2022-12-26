@@ -52,7 +52,7 @@ div.UserBox {
 .bottom-container {
     display: grid;
     background-color: #F5F5F5;
-    height: 380px;
+    height: 300px;
     margin: 0%;
     overflow: scroll;
 }

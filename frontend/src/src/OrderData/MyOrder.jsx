@@ -15,7 +15,7 @@ function GetTime(props) {
 
 function MyOrder() {
     const location = useLocation()
-    console.log(location.state.order)
+    console.log('log order', location.state.order)
     const order = location.state.order[0];
 
     const counters = Array.from({ length: order.order_num }); 
@@ -29,7 +29,7 @@ function MyOrder() {
             <div class="row">
                 <div class="col" />
 
-                <div class="col-9">
+                <div class="col-9" style={{"width":300}}>
                     <div class="top-container"> {/* 上方 */}
                         <div class="row row-cols-auto justify-content-center">
                             <div class="col-3 text-right">人數：</div>
@@ -73,7 +73,7 @@ function MyOrder() {
                         <div class="row"></div>
                     </div>
 
-                    <div style={{ float: "right" }}><ChatText size={50} /></div>
+                    {/* <div style={{ float: "right" }}><ChatText size={50} /></div> */}
                 </div>
 
                 <div class="col" />

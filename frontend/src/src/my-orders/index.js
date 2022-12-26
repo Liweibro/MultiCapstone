@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
+import { BsFillCircleFill } from "react-icons/bs";
 import "./index.css";
 import BackButton from "./components/back-button";
 import {
@@ -98,8 +99,8 @@ export default function BasicGrid() {
   useEffect(() => {
       // getorder(db).then(order => setData(order));
       myorder(db, uid).then(res => setData(res));
-  }, []);
-  console.log(uid)
+  }, [uid]);
+  console.log('where vam i', uid);
 
   return (
     <>
@@ -123,17 +124,17 @@ export default function BasicGrid() {
         <Grid xs={4} display="flex" justifyContent="center" alignItems="center">
           <div className="fixed">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton id="tbg-radio-1" value={1} variant="secondary">
+              <ToggleButton id="tbg-radio-1" value={1} variant="secondary"  style={{'padding':1}}>
                 <div className="headtest">未送出</div>
               </ToggleButton>
             </ToggleButtonGroup>
           </div>
         </Grid>
-
+ 
         <Grid xs={4} display="flex" justifyContent="center" alignItems="center">
           <div className="fixed">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton id="tbg-radio-2" value={2} variant="secondary">
+              <ToggleButton id="tbg-radio-2" value={2} variant="secondary" style={{'padding':1}}>
                 <div className="headtest">已送出</div>
               </ToggleButton>
             </ToggleButtonGroup>
@@ -143,27 +144,29 @@ export default function BasicGrid() {
         <Grid xs={4} display="flex" justifyContent="center" alignItems="center">
           <div className="fixed">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton id="tbg-radio-3" value={3} variant="secondary">
+              <ToggleButton id="tbg-radio-3" value={3} variant="secondary"  style={{'padding':1}}>
                 <div className="headtest">已完成</div>
               </ToggleButton>
             </ToggleButtonGroup>
           </div>
         </Grid>
       </Grid>
-      <Grid container direction="column">
+      {/* <Grid container direction="column">
         <br />
         <br />
         {data.map(d => 
           <Link to="/MyOrderData" state={{ order:d }}><button className="group_button" key={d.name}>
-            
+              <div className="user_image">
+                <BsFillCircleFill style={{'width': 80, 'height': 40, 'color':'#fff'}}/>
+              </div>
+
+              <div className={"user_name"}>
+                {d[0].participant[0].username}
+              </div>
               <Grid container>
                 <Grid xs={3}>
                   <div className="user_image">
-                    <Image
-                      src=
-                      "https://media.geeksforgeeks.org/wp-content/uploads/20210425000233/test-300x297.png"
-                      roundedCircle width="70"
-                    />
+                    <BiGroup style={{'width': 80, 'height': 40, 'color':'#fff'}}/>
                   </div>
                 </Grid>
                 <Grid xs={9} className={"user_name"}>
@@ -173,8 +176,26 @@ export default function BasicGrid() {
             
           </button></Link>
         )}
-      </Grid>
+      </Grid> */}
     </Grid>
+    
+    <br />
+    <br />
+    <br />
+
+    {data.map(d => 
+          <div className="outer_container" style={{'width':'auto', 'display':'relative'}}>
+            <Link to="/MyOrderData" state={{ order:d }}><button className="group_button" key={d.name}>
+              <div className="user_image">
+                <BsFillCircleFill style={{'width':40, 'height':40, 'color':'#fff', 'margin':'10px 0px 10px 20px'}}/>
+              </div>
+
+              <div className={"user_name"} style={{'margin':'10px 40px 10px 0px', 'text-decoration': 'none'}}>
+                {d[0].participant[0].username}
+              </div>
+            
+            </button></Link></div>
+          )}
 
     <div className='navbar_container'>
       <div className='search'>

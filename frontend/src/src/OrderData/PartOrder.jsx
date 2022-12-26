@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './MyOrder.css';
 import { Button, Modal} from 'react-bootstrap';
 import { Link } from "react-router-dom";
@@ -51,6 +51,7 @@ function GetTime(props) {
 // from order-meals, to myorder
 function OrderHasBeenPart(props) {
     const [uid, SetUID] = useState("");
+    const navigate = useNavigate();
     // console.log(uid)
     console.log(props.oid)
     // console.log(props.part.part)
@@ -95,6 +96,7 @@ function OrderHasBeenPart(props) {
         
     }
     async function joinOrder(db,OID,username) {
+        console.log('here her here', username);
         // join Order
         // update the data to this order
         const docData = {
@@ -104,8 +106,8 @@ function OrderHasBeenPart(props) {
         }
         console.log(docData)
         
-        updateOrder(db, OID, docData);
-        createUserList(db, OID, username);
+        await updateOrder(db, OID, docData);
+        await createUserList(db, OID, username);
     }
 
     return (
@@ -134,8 +136,14 @@ function OrderHasBeenPart(props) {
             alignItems: "center",
             }}
             >
-                <Link to="/myorder" state={{ uid:uid }}><Button onClick={(event) => { props.onHide(); joinOrder(db, props.oid, uid) } } id="btn-second"
-                >確認前往</Button></Link>
+                <Button onClick={async(event) => {
+                        await joinOrder(db, props.oid, uid);
+                        navigate("/myorder", {state:{uid:uid}})
+                        props.onHide();
+                    }}
+                        id="btn-second">
+                        確認前往
+                </Button>
             </Modal.Footer>
         </Modal>
     );
@@ -152,7 +160,7 @@ function GetRes(props) {
     {
         return (
             <>
-                <Link to="/ordermeal" state={{ res:{rd}, oid:{oid}, source:"/join-orders" }}><Button id="btn-second" style={{width: "100%", backgroundColor:"#d9d9d9"}}>
+                <Link to="/ordermeal" state={{ order:{rd}, oid:{oid}, source:"/join-orders" }}><Button id="btn-second" style={{width: "100%", backgroundColor:"#d9d9d9"}}>
                     <div class="footer" style={{textAlign:"center"}}><CheckCircle color='#7C7C7C' style={{ margin: "0% 1% 0% 0%", }}/>確認參與此訂單</div>
                 </Button></Link>
             </>
@@ -169,7 +177,7 @@ function PartOrder() {
     const d = location.state.order;
     var part = location.state.part;
 
-    const counters = Array.from({ length: d.d[1].order_num }); 
+    const counters = Array.from({ length: d.d[1].participant.length }); 
 
     const [orderplaced, placedOpened] = useState(false);
     const showModal = () => {
@@ -199,7 +207,7 @@ function PartOrder() {
                 <div class="row">
                     <div class="col" />
     
-                    <div class="col-9">
+                    <div class="col-9" style={{"width":300}}>
                         <div class="top-container"> {/* 上方 */}
                             <div class="row row-cols-auto justify-content-center">
                                 <div class="col-3 text-right">人數：</div>
@@ -273,7 +281,7 @@ function PartOrder() {
                 <div class="row">
                     <div class="col" />
     
-                    <div class="col-9">
+                    <div class="col-9" style={{"width":300}}>
                         <div class="top-container"> {/* 上方 */}
                             <div class="row row-cols-auto justify-content-center">
                                 <div class="col-3 text-right">人數：</div>
@@ -304,7 +312,7 @@ function PartOrder() {
                         </div>
     
                         <br></br>
-                        <div class="bottom-container" style={{paddingTop: "4%"}}> {/* 下方 */}
+                        <div class="bottom-container"> {/* 下方 */}
                             
                             {counters.map((_, index) => ( 
                             <div key={index} class="row justify-content-center">

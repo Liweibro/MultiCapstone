@@ -1,6 +1,6 @@
 import {React, useState, useEffect, query, where } from "react";
 import { v4 } from "uuid";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Modal,  Card } from 'react-bootstrap';
 import { PlusCircle, XCircle, CheckCircle } from "react-bootstrap-icons";
 import PartOrderData from '../../OrderData/PartOrder'
@@ -152,7 +152,7 @@ function ChooseID(props) {
               </div>
 
               <div>
-                  <Button onClick={(event) => { props.onHide(); showModal(); } } id="btn-second" style={{margin: "10px"}}>仍要發起拚單</Button>
+                  <Button onClick={(event) => { props.onHide(); showModal(); } } id="btn-second" style={{margin: "10px"}}>仍要發起拼單</Button>
               </div>
           </Modal.Body>
           <Modal.Footer style={{backgroundColor: "#f5f5f5"}}/>
@@ -457,11 +457,41 @@ function OrderSetting(props) {
 }
 
 function OrderHasBeenPlaced(props) {
+    const navigate = useNavigate();
     const uid = props.uid;
     console.log(uid)
+    async function updateOrder(db, OID, docData) {
+        const Ref = doc(db, "order", OID);
+        const docSnap = await getDoc(Ref);
+        const origin_data = docSnap.data();
+        await updateDoc(Ref, {
+            participant: arrayUnion(docData),
+            order_num: origin_data.order_num + 1,
+            sum_price: origin_data.sum_price + docData.total,
+        });
+    
+    }
+    async function createUserList(db, OID, UID) {
+        const Ref = doc(db, "userList", UID);
+        const docData ={
+                            orderID:arrayUnion(OID)
+                        }
+        const docSnap = await getDoc(Ref);
+    
+        if (docSnap.exists()) {
+            await updateDoc(Ref, docData);
+            console.log("Document data:", docSnap.data());
+        } else {
+        
+            await setDoc(Ref, docData);
+        }
+        
+    }
+    
+    
   return (
       <Modal 
-        {...props} 
+        {...props}
         dialogClassName="modal-width-center"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -477,14 +507,22 @@ function OrderHasBeenPlaced(props) {
           alignItems: "center",
           }}
           >
-              <Link to="/myorder" state={{ uid:uid }}><Button onClick={props.onHide} id="btn-second"
-              >確認前往</Button></Link>
+              <Button onClick={async(event) => {
+                navigate("/myorder",{state:{uid:uid}})
+                props.onHide();
+              }}
+                id="btn-second"
+                >
+                確認前往
+              </Button>
           </Modal.Footer>
       </Modal>
   );
 }
 
+
 function OrderHasBeenPart(props) {
+    const navigate = useNavigate();
     const [uid, SetUID] = useState("");
     // console.log(uid)
     console.log(props.oid)
@@ -501,7 +539,6 @@ function OrderHasBeenPart(props) {
         return items;
     }
     // console.log(items)
-
     async function updateOrder(db, OID, docData) {
         const Ref = doc(db, "order", OID);
         const docSnap = await getDoc(Ref);
@@ -539,9 +576,11 @@ function OrderHasBeenPart(props) {
         }
         console.log(docData)
         
-        updateOrder(db, OID, docData);
-        createUserList(db, OID, username);
+        await updateOrder(db, OID, docData);
+        await createUserList(db, OID, username);
     }
+    
+    
 
     return (
         <Modal 
@@ -568,9 +607,15 @@ function OrderHasBeenPart(props) {
             alignItems: "center",
             }}
             >
-                <Link to="/myorder" state={{ uid:{uid} }}><Button onClick={(event) => { props.onHide(); joinOrder(db, props.oid, uid) } } id="btn-second"
-                >確認前往</Button></Link>
-                {/* <Button onClick={(event) => { props.onHide(); joinOrder(db, props.oid, uid) } }>test</Button> */}
+                <Button onClick={async(event) => {
+                    await joinOrder(db, props.oid, uid);
+                    navigate("/myorder",{state:{uid:uid}})
+                    props.onHide();
+                }}
+                    id="btn-second"
+                    >
+                    確認前往
+              </Button>
             </Modal.Footer>
         </Modal>
     );
