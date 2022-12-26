@@ -30,16 +30,24 @@ const db = getFirestore(app);
 async function getorder(db) {
   const ordersCol = collection(db, 'order');
   const orderSnapshot = await getDocs(ordersCol);
-  const orderList = orderSnapshot.docs.map(doc => doc.data());
+
+  const orderList = orderSnapshot.docs.map(function (doc) {
+      
+      return [doc.id, doc.data()];
+  });
+
   return orderList;
 }
 async function getres(db) {
-    const resCol = collection(db, 'restaurant');
-    const resSnapshot = await getDocs(resCol);
-    
-    const resList = resSnapshot.docs.map(doc => doc.data());
-    
-    return resList;
+  const resCol = collection(db, 'restaurant');
+  const resSnapshot = await getDocs(resCol);
+  
+  const resList = resSnapshot.docs.map(function (doc) {
+      
+      return [doc.id, doc.data()];
+  });
+  
+  return resList;
 }
 
 export default function BasicGrid() {
@@ -75,7 +83,7 @@ export default function BasicGrid() {
           <br />
         </Grid>
         {data.map(d =>
-          <Link to="/partorderdata" state={{ order:{d}, source:"/join-order" }}><button className="join_button" key={d.name}>
+          <Link to="/partorderdata" state={{ order:{d}, source:"/join-order" }}><button className="join_button" key={d[1].name}>
             <Grid container>
               <Grid container>
                 <Grid xs={2} className="group_image">
@@ -88,18 +96,18 @@ export default function BasicGrid() {
                   </div>
                 </Grid>
                 <Grid xs={10} className={"group_name"}>
-                  {d.participant[0].username}
+                  {d[1].participant[0].username}
                 </Grid>
                 <Grid xs={6}>時間：17:30
                 </Grid>
                 <Grid xs={6}>人數：
-                  {d.id}
+                  {d[1].order_num}
                 </Grid>
                 <Grid xs={12}>地點：
-                  {d.dest}
+                  {d[1].dest}
                 </Grid>
                 <Grid container>
-                  {d.tag.map(e =>
+                  {d[1].tag.map(e =>
                     <div key={e.tag}>
                       <Grid xs="auto" className="tag">
                         {e}
