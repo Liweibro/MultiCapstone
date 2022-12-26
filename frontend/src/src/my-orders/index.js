@@ -17,15 +17,15 @@ import {
 import Container from "react-bootstrap/Container";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import Image from "react-bootstrap/Image";
+import Image, { propTypes } from "react-bootstrap/Image";
 //import "bootstrap-icons/font/bootstrap-icons.css"
 import { useState, useEffect } from "react";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs,  doc, getDoc, } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCPlp4TV4z7BZP7g--N_mjUMVhnhHqihyc",
@@ -55,13 +55,52 @@ async function getres(db) {
     return resList;
 }
 
+async function get_spc_order(db, OID) {
+  const Ref = doc(db, 'order', OID);
+  const snap = await getDoc(Ref);
+  
+  return [snap.data()];
+}
+
+async function myorder(db, UID) {
+  const ordersCol = doc(db, 'userList', UID);
+  const Snapshot = await getDoc(ordersCol);
+  const data = [];
+  const User_orderdata = [];
+  if (Snapshot.data()) {
+      
+      const orderlist = Snapshot.data().orderID;
+      // console.log(orderlist)
+      for (var i = 0; i < orderlist.length; i++){
+          // console.log(orderlist[i]);
+          data.push((await get_spc_order(db, orderlist[i])).map(function (d) {
+              return d;
+          })) ;
+      }
+      console.log(data);
+      return data;
+
+  }
+  else {
+      return [];
+  }
+ 
+
+  
+  
+}
+
 export default function BasicGrid() {
+  const location = useLocation();
+  const uid = location.state.uid;
   const [data, setData] = useState([]);
 
   useEffect(() => {
-      getorder(db).then(order => setData(order));
+      // getorder(db).then(order => setData(order));
+      myorder(db, uid.uid).then(res => setData(res));
   }, []);
-  console.log(getorder(db))
+  console.log(data)
+
   return (
     <Grid container direction={"column"}>
       <Grid container className="top_nav">
@@ -127,7 +166,7 @@ export default function BasicGrid() {
                   </div>
                 </Grid>
                 <Grid xs={9} className={"user_name"}>
-                  &ensp;{d.participant[0].username}
+                  &ensp;{d[0].participant[0].username}
                 </Grid>
               </Grid>
             
