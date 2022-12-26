@@ -8,7 +8,7 @@ import PartOrderData from '../../OrderData/PartOrder'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, addDoc, doc, getDoc, updateDoc, setDoc, arrayUnion, GeoPoint  } from 'firebase/firestore/lite';
 import { common } from "@mui/material/colors";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -25,14 +25,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+
 async function getorder(db) {
   const ordersCol = collection(db, 'order');
   const orderSnapshot = await getDocs(ordersCol);
-  const orderList = orderSnapshot.docs.map(doc => doc.data());
+  const orderList = orderSnapshot.docs.map(function (doc){
+    return [doc.id, doc.data()]
+  });
   return orderList;
+}
+async function getloaction(db) {
+    const loactionsCol = collection(db, 'location');
+    const loactionsSnapshot = await getDocs(loactionsCol);
+    const loactionsList = loactionsSnapshot.docs.map(doc => doc.data());
+    return loactionsList;
 }
 
 const Edit = (props) => {
+    // console.log(props.part)
   const [chooseID, idOpened] = useState(false);
 
   const showModal = () => {
@@ -50,11 +60,12 @@ const Edit = (props) => {
             加入購物車
         </button>
         </div>
-        <OrderHasBeenPart show={chooseID} onHide={hideModal} res={props.res}/>
+        <OrderHasBeenPart show={chooseID} onHide={hideModal} res={props.res} oid={props.oid} part={props.part}/>
         </>
     );
   }
 
+  // from order-meals
   else 
   {
     return (
@@ -63,7 +74,7 @@ const Edit = (props) => {
             加入購物車
         </button>
         </div>
-        <ChooseID show={chooseID} onHide={hideModal} res={props.res}/>
+        <ChooseID show={chooseID} onHide={hideModal} res={props.res} part={props.part}/>
         </>
     );
   }
@@ -76,19 +87,21 @@ function GetTime(props) {
     );
 }
 
+// 當前進行中的拚單
 function Is_Res(props) {
     var resName = props.res_name;
     var d = props.order;
+    var part = props.part;
 
-    if (resName == d.restaurant_name) {
+    if (resName == d[1].restaurant_name) {
         return (
         <>
         <Card className="text-center">
-            <Card.Header>由 {d.participant[0].username} 發起</Card.Header>
+            <Card.Header>由 {d[1].participant[0].username} 發起</Card.Header>
             <Card.Body>
-            <Link to="/partorderdata" state={{ order:{d}, source:"/Edit" }}><Button variant="dark">一起拼單 GO</Button></Link>
+            <Link to="/partorderdata" state={{ order:{d}, part:{part},source:"/Edit" }}><Button variant="dark">一起拼單 GO</Button></Link>
             </Card.Body>
-            <Card.Footer className="text-muted">{d.autosend? <GetTime time={d.autosend_time.seconds*1000}/>: "無設定自動送出時間"}</Card.Footer>
+            <Card.Footer className="text-muted">{d[1].autosend? <GetTime time={d[1].autosend_time.seconds*1000}/>: "無設定自動送出時間"}</Card.Footer>
         </Card>
         <br></br>
         </>
@@ -104,9 +117,8 @@ function ChooseID(props) {
 
   const [data, setData] = useState([]);
   useEffect(() => {
-      getorder(db).then(res => setData(res));
+      getorder(db).then(order => setData(order));
   }, []);
-  // console.log(data)
 
   const [ordersetting, settingOpened] = useState(false);
   const showModal = () => {
@@ -135,7 +147,7 @@ function ChooseID(props) {
               
               <div style={{height: "200px", overflow: "scroll", backgroundColor: "#d3d3d3", padding:"1.4em 0.2em", marginBottom:"1em" }}>
               {data.map(d => <div key={d.name}>
-                <Is_Res res_name={props.res.name} order={d}/>
+                <Is_Res res_name={props.res[1].name} order={d} part={props.part}/>
               </div>)}
               </div>
 
@@ -146,12 +158,14 @@ function ChooseID(props) {
           <Modal.Footer style={{backgroundColor: "#f5f5f5"}}/>
       </Modal>
       
-      <OrderSetting show={ordersetting} onHide={hideModal}/>
+      <OrderSetting show={ordersetting} onHide={hideModal} res={props.res} part={props.part}/>
       </>
   );
 }
 
 function OrderSetting(props) {
+    // console.log(props.res)
+    // console.log(props.part)
   const [orderplaced, placedOpened] = useState(false);
   const showModal = () => {
       placedOpened(true);
@@ -162,32 +176,96 @@ function OrderSetting(props) {
 
   const [under_bound, SetUnder_bound] = useState(1);
   const [upper_bound, SetUp_bound] = useState(1);
-  const [name, SetName] = useState("");
+  const res_name = props.res.name;
+  const [uid, SetUID] = useState("");
   const [dst, SetDst] = useState("研三舍");
   const [autosend, SetAutosend] = useState(false);
   const HandleChange = () => {
     SetAutosend(!autosend);
   }
   const [sendtime, SetSendTime] = useState("Tue Dec 27 2022 14:00:00 GMT+800");
-//   console.log(name);
-
-    const select_data = {
-        autosend: {autosend},
-        autosend_time: new Date({sendtime}),
-        dest: {dst},
-        // dest_geo: new GeoPoint(24.784111053169237, 120.99630264166379).toJSON(),
-        human_lowerbound: {under_bound},
-        human_upperbound: {upper_bound},
-        restaurant_name: "鴉片粉圓",
-        participant: [{ item: ["鴉片粉圓"], total: 55 ,username:{name}}],
-        id: Math.floor(Math.random() * 2839493).toString(),
-        order_num: 1,
-        tag: ["下午茶" ,"冰品"],
-        sum_price: 55,
+  const [items, setitems] = useState([]);
+  var total = 0;
+    async function iterItem() {
+        const next = props.part.map((d, index) => {
+           var now = d.item;
+           items.push(now);
+            total += d.total;
+        });
+        return items;
     }
-    async function addData(db, select_data) {
-        const groceriesColRef = collection(db, 'order');
-        return addDoc(groceriesColRef, select_data).then(docref => console.log("successfully")).catch(error => console.log(error));
+  const [point, set_point] = useState([]);
+
+    async function getGeopoint(db, place) {
+        const Ref = doc(db, "location", place);
+        const docSnap = await getDoc(Ref);
+        
+        return docSnap.data().location;
+    }
+
+    async function createUserList(db, OID, UID) {
+        const Ref = doc(db, "userList", UID);
+        const docData ={
+                            orderID:arrayUnion(OID)
+                        }
+        const docSnap = await getDoc(Ref);
+    
+        if (docSnap.exists()) {
+            await updateDoc(Ref, docData);
+            console.log("Document data:", docSnap.data());
+        } else {
+        
+            await setDoc(Ref, docData);
+        }
+        
+    }
+    
+    async function updateRes(db,RID,OID) {
+        const Ref = doc(db, "restaurant", RID);
+        const docSnap = await getDoc(Ref);
+        // console.log("yes");
+        console.log(docSnap.data().ord_num);
+        updateDoc(Ref, {
+            orderList: arrayUnion(OID),
+            ord_num:docSnap.data().ord_num+1
+        }).then(
+            console.log('sucess')
+        ).catch(function (error) { console.error("error: ", error); });
+    }
+    async function insertOrder(db, OID, docData) {
+        
+        await setDoc(doc(db, "order", OID), docData);
+    }
+    
+    async function createOrder(db,RID) {
+        // create Order
+        getGeopoint(db, dst).then(res => set_point(res))
+        const OID = Math.floor(Math.random() * 2839493).toString();
+        const username = "告白校花";
+        const t = ["下午茶", "冰品"];
+        const select_data = {
+            autosend: autosend,
+            autosend_time: new Date(sendtime),
+            dest: dst,
+            dest_geo: point,
+            human_lowerbound: under_bound,
+            human_upperbound: upper_bound,
+            restaurant_name: res_name,
+            participant: [
+                { item: iterItem(), 
+                total: total, 
+                username:  uid  }],
+            
+            order_num: 1,
+            tag: t,
+            sum_price: total,
+        }
+        console.log(select_data)
+
+        insertOrder(db, OID, select_data);
+        updateRes(db, RID, OID);
+        createUserList(db, OID, username);
+        
     }
 
   return (
@@ -207,7 +285,7 @@ function OrderSetting(props) {
                               人數：
                           </div>
                           <div className="bound_wrapper">
-                            <select id="under_bound form-control" onfocus='this.size=5;' onblur='this.size=1;' value={under_bound}
+                            <select id="under_bound form-control" value={under_bound}
                                 onChange={(e) => SetUnder_bound(e.target.value)}>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
@@ -223,7 +301,7 @@ function OrderSetting(props) {
                           </div>
                           <div className="col-2">~</div>
                           <div>
-                          <select id="upper_bound form-control" onfocus='this.size=5;' onblur='this.size=1;' value={upper_bound}
+                          <select id="upper_bound form-control" value={upper_bound}
                                 onChange={(e) => SetUp_bound(e.target.value)}>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
@@ -245,7 +323,7 @@ function OrderSetting(props) {
                             <div for="name" className="col-form-label" style={{ fontSize: "20px", marginRight:"15px" }}>暱稱</div>
                               <div className="col-4 align-self-center">
                                   <input type="text" className="form-control" id="name" style={{ backgroundColor: "#d9d9d9", height: "20px" }} 
-                                  value={name} onChange={(e) => SetName(e.target.value)} />
+                                  value={uid} onChange={(e) => SetUID(e.target.value)} />
                               </div>
                       </div>
                       <div className="row justify-content-center row-cols-auto align-items-center" >  {/* 推薦人數 */}
@@ -259,7 +337,7 @@ function OrderSetting(props) {
                           <label for="送達地點" className="col-form-label twenty">送達地點</label>
                           <div className="col-6 align-self-center">
                               {/* <input type="text" className="form-control" id="送達地點" style={{ backgroundColor: "#d9d9d9", height: "20px" }} placeholder="" /> */}
-                              <select id="dst form-control" onfocus='this.size=5;' onblur='this.size=1;' value={dst}
+                              <select id="dst form-control"  value={dst}
                                 onChange={(e) => SetDst(e.target.value)} style={{width:"200px"}}>
                                 <option value={"研三舍"}>研三舍</option>
                                 <option value={"女二舍"}>女二舍</option>
@@ -300,7 +378,7 @@ function OrderSetting(props) {
                           <div className="row row-cols-auto">
                               <label for="自動送出時間" className="col-form-label twenty">自動送出時間</label>
                               <div className="col-4 align-self-center" style={{ fontSize: "20px", }}>
-                                <select id="sendtime form-control" onfocus='this.size=5;' onblur='this.size=1;' value={sendtime}
+                                <select id="sendtime form-control"  value={sendtime}
                                     onChange={(e) => SetSendTime(e.target.value)} style={{width:"120px"}}>
                                     <option value={"Tue Dec 27 2022 14:00:00 GMT+800"}>14 : 00</option>
                                     <option value={"Tue Dec 27 2022 14:30:00 GMT+800"}>14 : 30</option>
@@ -325,19 +403,22 @@ function OrderSetting(props) {
                   justifyContent: "center",
                   alignItems: "center",
               }}>
-                  <Button onClick={(event) => {props.onHide() ;showModal()}} id="btn-second">
+                  <Button onClick={(event) => {props.onHide() ;showModal(); createOrder(db, props.res[0])}} id="btn-second">
                       <CheckCircle />確認送出
                   </Button>
+                  <Button onClick={(event) => {props.onHide() ;}}>createOrder</Button>
               </Modal.Footer>
           </Modal>
       </div>
 
-      <OrderHasBeenPlaced show={orderplaced} onHide={hideModal}/>
+      <OrderHasBeenPlaced show={orderplaced} onHide={hideModal} uid={uid}/>
       </>
   );
 }
 
 function OrderHasBeenPlaced(props) {
+    const uid = props.uid;
+    console.log(uid)
   return (
       <Modal 
         {...props} 
@@ -356,7 +437,7 @@ function OrderHasBeenPlaced(props) {
           alignItems: "center",
           }}
           >
-              <Link to="/myorder"><Button onClick={props.onHide} id="btn-second"
+              <Link to="/myorder" state={{ uid:{uid} }}><Button onClick={props.onHide} id="btn-second"
               >確認前往</Button></Link>
           </Modal.Footer>
       </Modal>
@@ -364,6 +445,64 @@ function OrderHasBeenPlaced(props) {
 }
 
 function OrderHasBeenPart(props) {
+    const [uid, SetUID] = useState("");
+    // console.log(uid)
+    console.log(props.oid)
+    console.log(props.part)
+
+    const [items, setitems] = useState([]);
+    var total = 0;
+    function iterItem() {
+        const next = props.part.map((d, index) => {
+           var now = d.item;
+           items.push(now);
+            total += d.total;
+        });
+        return items;
+    }
+    // console.log(items)
+
+    async function updateOrder(db, OID, docData) {
+        const Ref = doc(db, "data", OID);
+        const docSnap = await getDoc(Ref);
+        const origin_data = docSnap.data();
+        await updateDoc(Ref, {
+            participant: arrayUnion(docData),
+            order_num: origin_data.order_num + 1,
+            sum_price: origin_data.sum_price + docData.total,
+        });
+    
+    }
+    async function createUserList(db, OID, UID) {
+        const Ref = doc(db, "userList", UID);
+        const docData ={
+                            orderID:arrayUnion(OID)
+                        }
+        const docSnap = await getDoc(Ref);
+    
+        if (docSnap.exists()) {
+            await updateDoc(Ref, docData);
+            console.log("Document data:", docSnap.data());
+        } else {
+        
+            await setDoc(Ref, docData);
+        }
+        
+    }
+    async function joinOrder(db,OID,username) {
+        // join Order
+        // update the data to this order
+        const docData = {
+            item: iterItem(),
+            total: total,
+            username: username
+        }
+        console.log(docData)
+        
+        updateOrder(db, OID, docData);
+        createUserList(db, OID, username);
+    }
+
     return (
         <Modal 
           {...props} 
@@ -376,7 +515,8 @@ function OrderHasBeenPart(props) {
                 <div for="name">
                     暱稱
                     <input type="text" id="name" 
-                    style={{ backgroundColor: "#d9d9d9", height: "25px" , width:"40%", marginLeft:"4%", border:"none", borderRadius:"4%", padding:"2% 3%", fontSize:"20px"}} />
+                    style={{ backgroundColor: "#d9d9d9", height: "25px" , width:"40%", marginLeft:"4%", border:"none", borderRadius:"4%", padding:"2% 3%", fontSize:"20px"}}
+                    value={uid} onChange={(e) => SetUID(e.target.value)} />
                 </div>
                 <br></br>
                 訂單已參與！<br></br>
@@ -388,8 +528,9 @@ function OrderHasBeenPart(props) {
             alignItems: "center",
             }}
             >
-                <Link to="/myorder"><Button onClick={props.onHide} id="btn-second"
+                <Link to="/myorder" state={{ uid:{uid} }}><Button onClick={(event) => { props.onHide(); joinOrder(db, props.oid, uid) } } id="btn-second"
                 >確認前往</Button></Link>
+                {/* <Button onClick={(event) => { props.onHide(); joinOrder(db, props.oid, uid) } }>test</Button> */}
             </Modal.Footer>
         </Modal>
     );
