@@ -241,7 +241,7 @@ function OrderSetting(props) {
         // create Order
         getGeopoint(db, dst).then(res => set_point(res))
         const OID = Math.floor(Math.random() * 2839493).toString();
-        const username = "告白校花";
+        const username = uid;
         const t = ["下午茶", "冰品"];
         const select_data = {
             autosend: autosend,
@@ -406,7 +406,7 @@ function OrderSetting(props) {
                   <Button onClick={(event) => {props.onHide() ;showModal(); createOrder(db, props.res[0])}} id="btn-second">
                       <CheckCircle />確認送出
                   </Button>
-                  <Button onClick={(event) => {props.onHide() ;}}>createOrder</Button>
+//                   <Button onClick={(event) => {props.onHide() ;}}>createOrder</Button>
               </Modal.Footer>
           </Modal>
       </div>
