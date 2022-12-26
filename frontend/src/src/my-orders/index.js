@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
+import { Modal} from 'react-bootstrap';
 import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
 import "./index.css";
 import BackButton from "./components/back-button";
@@ -90,10 +91,49 @@ async function myorder(db, UID) {
   
 }
 
+function FinishOrder(props) {
+  return (
+    <>
+    <Modal
+        {...props}
+        dialogClassName="modal-width-center"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+    >
+        <Modal.Header style={{borderBottom:"none", backgroundColor: "#f5f5f5"}} closeButton />
+        <Modal.Body className='a' style={{
+            display: "block",
+            justifyContent: "center",
+            alignItems: "center",
+        }}
+        >
+            {/* <div className='black'>當前進行中的拼單</div> */}
+            <div>
+              請輸入取餐號碼：
+              <input type="text" className="form-control" id="name" style={{ backgroundColor: "#d9d9d9", height: "50px" }}/>
+            </div>
+
+            <div>
+                <Button onClick={(event) => { props.onHide();} } id="btn-second" style={{margin: "10px"}}>完成取餐</Button>
+            </div>
+        </Modal.Body>
+        <Modal.Footer style={{backgroundColor: "#f5f5f5"}}/>
+    </Modal>
+    </>
+  );
+}
+
 export default function BasicGrid() {
   const location = useLocation();
   const uid = location.state.uid;
   const [data, setData] = useState([]);
+  const [showfinish, SetFinish] = useState(false);
+  const showModal = () => {
+    SetFinish(true);
+  }
+  const hideModal = () => {
+    SetFinish(false);
+  }
 
   useEffect(() => {
       // getorder(db).then(order => setData(order));
@@ -179,6 +219,11 @@ export default function BasicGrid() {
         
         <Grid xs={1}></Grid>
       </Grid>
+      <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+        <button id="btn-second" style={{margin: "10px"}} onClick={showModal}>
+          取餐按鈕
+        </button>
+      </Grid>
     </Grid>
 
     <div className='navbar_container'>
@@ -220,6 +265,8 @@ export default function BasicGrid() {
         </div>
       </Link>
     </div>
+
+    <FinishOrder show={showfinish} onHide={hideModal}/>
     </>
   );
 }
