@@ -7,36 +7,35 @@
   border-radius: 5px;
   position: fixed;
 }
-/* .headtest {
+.headtest {
   font-size: 25px;
   border: 0;
   text-align: center;
   border-radius: 5px;
-  margin: 1px;
   padding: 0px 10px;
-} */
+  color: rgb(253, 253, 253);
+}
 
 .top_nav {
   background-color: #adadad;
 }
 
 .group_button {
-  margin: 20px 40px;
-  padding: auto;
+  margin: 20px 20px;
   text-align: left;
   background-color: #828282;
   border: none;
-  width: auto;
+  width: 85%;
   justify-content: center;
-  display: flex;
-  
-  text-decoration: none;
+  align-items: center;
+  left:0px
 }
 .user_name {
-  font-size: 20px;
-  padding: 15px;
+  font-size: 25px;
+  padding-left: 15px;
   display: flex;
-  align-items: center;
+  align-items: center
+  
 }
 
 .fixed {
@@ -45,11 +44,11 @@
 
 .fixedtest {
   position: fixed;
-  left: 0px;
   width: 100%;
   border: none;
   background-color: #adadad;
   font-size: 85px;
+  left: 0px;
 }
 
 .back {
@@ -85,8 +84,8 @@ html, body
 {
     height: auto;
 }
-
-/* .top_container
+/*
+.top_container
 {
     position: relative;
     width: 100%;
@@ -97,8 +96,8 @@ html, body
     align-items: center;
     font-size: 24px;
     font-weight: bolder;
-}
-
+}*/
+/*
 .user_info
 {
     position: absolute;
@@ -108,7 +107,7 @@ html, body
 .user_info_text
 {
     padding-left: 30px;
-} */
+}*/
 
 .navbar_container
 {
