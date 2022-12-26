@@ -186,7 +186,7 @@ function OrderSetting(props) {
   const [sendtime, SetSendTime] = useState("Tue Dec 27 2022 14:00:00 GMT+800");
   const [items, setitems] = useState([]);
   var total = 0;
-    async function iterItem() {
+    function iterItem() {
         const next = props.part.map((d, index) => {
            var now = d.item;
            items.push(now);
