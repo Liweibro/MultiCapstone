@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/MultiCapstone/static/css/main.3e16d1af.css",
-    "main.js": "/MultiCapstone/static/js/main.2a29d9d7.js",
+    "main.css": "/MultiCapstone/static/css/main.eb416638.css",
+    "main.js": "/MultiCapstone/static/js/main.d320dbe1.js",
     "static/js/787.427e76e9.chunk.js": "/MultiCapstone/static/js/787.427e76e9.chunk.js",
     "static/media/pexels-william-choquette-1954526.jpg": "/MultiCapstone/static/media/pexels-william-choquette-1954526.44e361f33b1c7c9276a4.jpg",
     "static/media/pexels-chan-walrus-958545.jpg": "/MultiCapstone/static/media/pexels-chan-walrus-958545.6a545d4d0a80d9813949.jpg",
     "static/media/0816018.png": "/MultiCapstone/static/media/0816018.b1cfec21edd22a7a2e2f.png",
     "static/media/logo.svg": "/MultiCapstone/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/MultiCapstone/index.html",
-    "main.3e16d1af.css.map": "/MultiCapstone/static/css/main.3e16d1af.css.map",
-    "main.2a29d9d7.js.map": "/MultiCapstone/static/js/main.2a29d9d7.js.map",
+    "main.eb416638.css.map": "/MultiCapstone/static/css/main.eb416638.css.map",
+    "main.d320dbe1.js.map": "/MultiCapstone/static/js/main.d320dbe1.js.map",
     "787.427e76e9.chunk.js.map": "/MultiCapstone/static/js/787.427e76e9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e16d1af.css",
-    "static/js/main.2a29d9d7.js"
+    "static/css/main.eb416638.css",
+    "static/js/main.d320dbe1.js"
   ]
 }
