@@ -16,7 +16,7 @@ function GetTime(props) {
 function MyOrder() {
     const location = useLocation()
     console.log(location.state.order)
-    const order = location.state.order;
+    const order = location.state.order[0];
 
     const counters = Array.from({ length: order.d.order_num }); 
 
