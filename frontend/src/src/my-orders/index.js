@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Modal} from 'react-bootstrap';
 import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
+import { BsFillCircleFill } from "react-icons/bs";
 import "./index.css";
 import BackButton from "./components/back-button";
 import {
@@ -183,36 +184,33 @@ export default function BasicGrid() {
         </Grid>
       </Grid>
         <br /><br /><br />
-      <Grid container >
-        <Grid xs={1}></Grid>
-        <Grid xs={10}>
+      <Grid container>
+        {/* <Grid xs={1}></Grid> */}
+        {/* <Grid xs={12}> */}
         {data.map(d => 
-          <Link to="/MyOrderData" state={{ order:d }}><button className="group_button" key={d.name}>
+          <Link to="/MyOrderData" state={{ order:d }}><button className="group_button" key={d.name} style={{width: 'auto',padding:'0px 30px', justifyContent:"center"}}>
             
-              <Grid container >
-                <Grid xs={3}>
-                  <div className="user_image">
-                    <Image
-                      src=
-                      "https://media.geeksforgeeks.org/wp-content/uploads/20210425000233/test-300x297.png"
-                      roundedCircle width="70"
-                    />
-                  </div>
+              <Grid container>
+                <Grid xs={12} style={{fontSize:'25px', marginRight:'15px'}}>
+                  {/* <div className="user_image"> */}
+                    <BsFillCircleFill style={{color:'rgb(253, 253, 253)', height:'70px', width:'70px', margin:'15px 15px'}}/>
+                    {' '}{d[0].participant[0].username}
+                  {/* </div> */}
                 </Grid>
-                <Grid xs={9} className={"user_name"}>
+                {/* <Grid xs={6} className={"user_name"} style={{}}>
                   {d[0].participant[0].username}
-                </Grid>
+                </Grid> */}
               </Grid>
             
           </button></Link>
         )}
         
-        </Grid>
+        {/* </Grid> */}
         
-        <Grid xs={1}></Grid>
+        {/* <Grid xs={1}></Grid> */}
       </Grid>
       <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-        <button id="btn-second" style={{margin: "10px"}} onClick={showModal}>
+        <button id="btn-second" style={{margin: "10px", backgroundColor: "rgb(253, 253, 253)", padding: "5px 10px", borderRadius:"10%"}} onClick={showModal}>
           取餐按鈕
         </button>
       </Grid>

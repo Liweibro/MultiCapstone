@@ -38,12 +38,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
-async function getorder(db) {
-  const ordersCol = collection(db, 'order');
-  const orderSnapshot = await getDocs(ordersCol);
-  const orderList = orderSnapshot.docs.map(doc => doc.data());
-  return orderList;
-}
+// async function getorder(db) {
+//   const ordersCol = collection(db, 'order');
+//   const orderSnapshot = await getDocs(ordersCol);
+//   const orderList = orderSnapshot.docs.map(doc => doc.data());
+//   return orderList;
+// }
 async function getres(db) {
   const resCol = collection(db, 'restaurant');
   const resSnapshot = await getDocs(resCol);
