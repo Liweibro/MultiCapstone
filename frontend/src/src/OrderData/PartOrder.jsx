@@ -134,7 +134,7 @@ function OrderHasBeenPart(props) {
             alignItems: "center",
             }}
             >
-                <Link to="/myorder" state={{ uid:{uid} }}><Button onClick={(event) => { props.onHide(); joinOrder(db, props.oid, uid) } } id="btn-second"
+                <Link to="/myorder" state={{ uid:uid }}><Button onClick={(event) => { props.onHide(); joinOrder(db, props.oid, uid) } } id="btn-second"
                 >確認前往</Button></Link>
             </Modal.Footer>
         </Modal>

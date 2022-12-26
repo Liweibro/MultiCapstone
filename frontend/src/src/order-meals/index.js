@@ -42,7 +42,7 @@ const firebaseConfig = {
 
 export default function BasicGrid() {
     const location = useLocation();
-    const d = location.state.res;
+    const d = location.state.order;
     var oid;
     if(location.state.source == "/join-orders")
       oid = location.state.oid.oid;

@@ -97,7 +97,7 @@ export default function BasicGrid() {
 
   useEffect(() => {
       // getorder(db).then(order => setData(order));
-      myorder(db, uid.uid).then(res => setData(res));
+      myorder(db, uid).then(res => setData(res));
   }, []);
   console.log(data)
 

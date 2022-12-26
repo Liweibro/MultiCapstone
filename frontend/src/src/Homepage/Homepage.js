@@ -171,7 +171,7 @@ function Homepage() {
         </div>
       </Link>
 
-      <Link to="/myorder">
+      <Link to="/myorder" state={{ uid:"告白校花" }}>
         <div className='order'>
           <span className = "nav_icon"> <BiCart/> </span>
           <br/>

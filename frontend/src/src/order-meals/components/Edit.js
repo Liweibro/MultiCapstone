@@ -477,7 +477,7 @@ function OrderHasBeenPlaced(props) {
           alignItems: "center",
           }}
           >
-              <Link to="/myorder" state={{ uid:{uid} }}><Button onClick={props.onHide} id="btn-second"
+              <Link to="/myorder" state={{ uid:uid }}><Button onClick={props.onHide} id="btn-second"
               >確認前往</Button></Link>
           </Modal.Footer>
       </Modal>
