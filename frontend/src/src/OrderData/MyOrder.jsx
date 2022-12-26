@@ -18,7 +18,7 @@ function MyOrder() {
     console.log(location.state.order)
     const order = location.state.order[0];
 
-    const counters = Array.from({ length: order.d.order_num }); 
+    const counters = Array.from({ length: order.order_num }); 
 
     return (
         <>
@@ -33,30 +33,30 @@ function MyOrder() {
                     <div class="top-container"> {/* 上方 */}
                         <div class="row row-cols-auto justify-content-center">
                             <div class="col-3 text-right">人數：</div>
-                            <div className='NumberBox'>{order.d.human_lowerbound}</div>
+                            <div className='NumberBox'>{order.human_lowerbound}</div>
                             <div class="col-1">~</div>
-                            <div className='NumberBox'>{order.d.human_upperbound}</div>
+                            <div className='NumberBox'>{order.human_upperbound}</div>
                         </div>
                         <div class="row row-cols-auto justify-content-center">
                             <div class="col-4">送餐時間：</div>
-                            <div class="col-6 TextBox">{order.d.autosend?<GetTime time={order.d.autosend_time.seconds*1000}/>:"未設定自動送出"}</div>
+                            <div class="col-6 TextBox">{order.autosend?<GetTime time={order.autosend_time.seconds*1000}/>:"未設定自動送出"}</div>
                         </div>
                         <div class="row row-cols-auto justify-content-center" style={{ marginBottom: "4%" }}>
                             <div class="col-4">取餐地點：</div>
-                            <div class="col-6 TextBox">{order.d.dest}</div>
+                            <div class="col-6 TextBox">{order.dest}</div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div className='ResName'>{order.d.restaurant_name}</div>
+                        <div className='ResName'>{order.restaurant_name}</div>
                     </div>
 
                     <div class="row row-cols-auto justify-content-between">
                         <div>總人數：</div>
-                        <div className='NumberBox'>{order.d.order_num}</div>
+                        <div className='NumberBox'>{order.order_num}</div>
 
                         <div>總價格：</div>
-                        <div className='NumberBox' style={{ width: "4em" }}>{order.d.sum_price}</div>
+                        <div className='NumberBox' style={{ width: "4em" }}>{order.sum_price}</div>
                     </div>
 
                     <br></br>
@@ -65,8 +65,8 @@ function MyOrder() {
                         {counters.map((_, index) => ( 
                         <div key={index} class="row justify-content-center">
                             <div class="col-10 UserBox" style={{textAlign:"center"}}>
-                                {order.d.participant[index].username} <br></br>
-                                {order.d.participant[index].total}元
+                                {order.participant[index].username} <br></br>
+                                {order.participant[index].total}元
                             </div>
                         </div>))}
 
