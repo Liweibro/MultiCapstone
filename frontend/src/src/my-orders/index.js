@@ -114,6 +114,7 @@ function FinishOrder(props) {
             </div>
 
             <div>
+                <div className="br_size"><br/></div>
                 <Button onClick={(event) => { props.onHide();} } id="btn-second" style={{margin: "10px"}}>完成取餐</Button>
             </div>
         </Modal.Body>
