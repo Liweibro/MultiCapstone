@@ -112,6 +112,40 @@ function Is_Res(props) {
     }
 }
 
+function Tag ()
+{
+    const [tags, setTags] = useState([])
+
+    function handleKeyDown(e)
+    {
+        if(e.key !== 'Enter') return
+        const value = e.target.value
+        if(!value.trim()) return
+        setTags([...tags, value])
+        e.target.value = ''
+    }
+
+    function removeTag(index)
+    {
+        setTags(tags.filter((el, i) => i !== index))
+    }
+
+    return(
+        <>
+        <div style={{ fontSize: "24px", }}>Tag：</div>
+        <div className='tags-input-container'>
+            { tags.map((tag, index) => (
+                <div className='tag-item' key={index}>
+                    <span className='text'>{tag}</span>
+                    <span className='close' onClick={() => removeTag(index)}>&times;</span>
+                </div>
+            )) }
+            <input onKeyDown={handleKeyDown} type="text" className='tags-input' placeholder='add tag' />
+        </div>
+        </>
+    )
+}
+
 function ChooseID(props) {
 //   console.log(props.res)
 
@@ -166,6 +200,8 @@ function ChooseID(props) {
 function OrderSetting(props) {
     // console.log(props.res)
     // console.log(props.part)
+    console.log(getorder(db))
+    console.log(props.res[1].name)
   const [orderplaced, placedOpened] = useState(false);
   const showModal = () => {
       placedOpened(true);
@@ -176,7 +212,7 @@ function OrderSetting(props) {
 
   const [under_bound, SetUnder_bound] = useState(1);
   const [upper_bound, SetUp_bound] = useState(1);
-  const res_name = props.res.name;
+  const res_name = props.res[1].name;
   const [uid, SetUID] = useState("");
   const [dst, SetDst] = useState("研三舍");
   const [autosend, SetAutosend] = useState(false);
@@ -186,7 +222,7 @@ function OrderSetting(props) {
   const [sendtime, SetSendTime] = useState("Tue Dec 27 2022 14:00:00 GMT+800");
   const [items, setitems] = useState([]);
   var total = 0;
-    function iterItem() {
+     function iterItem() {
         const next = props.part.map((d, index) => {
            var now = d.item;
            items.push(now);
@@ -194,14 +230,15 @@ function OrderSetting(props) {
         });
         return items;
     }
-  const [point, set_point] = useState([]);
-
-    async function getGeopoint(db, place) {
-        const Ref = doc(db, "location", place);
-        const docSnap = await getDoc(Ref);
-        
-        return docSnap.data().location;
-    }
+  const map = 
+    {"十三舍": [24.36474647,121.5574838],
+    "七舍": [24.804531, 120.994467],
+    "十二舍": [24.784503359014682, 24.784503359014682],
+    "十舍": [24.79033087249232, 120.99666381349259],
+    "女二舍": [24.78462223089661, 120.99935127354443],
+    "研三舍": [24.79218663298738, 120.9950263178108],
+    "竹軒": [24.7903823212179, 120.99829697651035]}
+  var point = [];
 
     async function createUserList(db, OID, UID) {
         const Ref = doc(db, "userList", UID);
@@ -239,7 +276,8 @@ function OrderSetting(props) {
     
     async function createOrder(db,RID) {
         // create Order
-        getGeopoint(db, dst).then(res => set_point(res))
+        // getGeopoint(db, dst).then(res => set_point(res))
+        point = map[dst];
         const OID = Math.floor(Math.random() * 2839493).toString();
         const username = uid;
         const t = ["下午茶", "冰品"];
@@ -248,23 +286,22 @@ function OrderSetting(props) {
             autosend_time: new Date(sendtime),
             dest: dst,
             dest_geo: point,
-            human_lowerbound: under_bound,
-            human_upperbound: upper_bound,
-            restaurant_name: res_name,
+            human_lowerbound: parseInt(under_bound , 10),
+            human_upperbound: parseInt(upper_bound, 10),
+            order_num: 1,
             participant: [
                 { item: iterItem(), 
                 total: total, 
-                username:  uid  }],
-            
-            order_num: 1,
-            tag: t,
+                username:  uid  }],     
+            restaurant_name: res_name,       
             sum_price: total,
+            tag: t,
         }
         console.log(select_data)
 
-        insertOrder(db, OID, select_data);
-        updateRes(db, RID, OID);
-        createUserList(db, OID, username);
+        // insertOrder(db, OID, select_data);
+        // updateRes(db, RID, OID);
+        // createUserList(db, OID, username);
         
     }
 
@@ -343,6 +380,9 @@ function OrderSetting(props) {
                                 <option value={"女二舍"}>女二舍</option>
                                 <option value={"竹軒"}>竹軒</option>
                                 <option value={"十三舍"}>十三舍</option>
+                                <option value={"七舍"}>七舍</option>
+                                <option value={"十舍"}>十舍</option>
+                                <option value={"十二舍"}>十二舍</option>
                             </select>
                           </div>
                       </div>
@@ -391,8 +431,9 @@ function OrderSetting(props) {
 
                       <div> {/* Tag */}
                           <div className="row justify-content-center  row-cols-auto" style={{alignItems: "center" }}>
-                              <div className="col-4" style={{ fontSize: "24px", }}>Tag：</div>
-                              <div><PlusCircle /></div><div><XCircle color="gray" style={{ margin: "0% 50%", }} /></div>
+                              {/* <div className="col-4" style={{ fontSize: "24px", }}>Tag：</div> */}
+                              {/* <div><PlusCircle /></div><div><XCircle color="gray" style={{ margin: "0% 50%", }} /></div> */}
+                              <Tag/>
                           </div>
                       </div>
 
@@ -406,7 +447,7 @@ function OrderSetting(props) {
                   <Button onClick={(event) => {props.onHide() ;showModal(); createOrder(db, props.res[0])}} id="btn-second">
                       <CheckCircle />確認送出
                   </Button>
-//                   <Button onClick={(event) => {props.onHide() ;}}>createOrder</Button>
+                  <Button onClick={(event) => {props.onHide() ;createOrder(db, props.res[0])}}>createOrder</Button>
               </Modal.Footer>
           </Modal>
       </div>
@@ -463,7 +504,7 @@ function OrderHasBeenPart(props) {
     // console.log(items)
 
     async function updateOrder(db, OID, docData) {
-        const Ref = doc(db, "data", OID);
+        const Ref = doc(db, "order", OID);
         const docSnap = await getDoc(Ref);
         const origin_data = docSnap.data();
         await updateDoc(Ref, {
