@@ -68,7 +68,7 @@ function OrderHasBeenPart(props) {
     // console.log(items)
 
     async function updateOrder(db, OID, docData) {
-        const Ref = doc(db, "data", OID);
+        const Ref = doc(db, "order", OID);
         const docSnap = await getDoc(Ref);
         const origin_data = docSnap.data();
         await updateDoc(Ref, {
