@@ -314,7 +314,7 @@ function OrderSetting(props) {
               centered
               id="ex1">
               <Modal.Header closeButton />
-              <Modal.Body>
+              <Modal.Body style={{"height":480}}>
                   <div className="container">
                       <div className="row justify-content-center row-cols-auto">  {/* 人數設定 */}
                           <div style={{ fontSize: "20px", }}>
@@ -446,7 +446,7 @@ function OrderSetting(props) {
                   <Button onClick={(event) => {props.onHide() ;showModal(); createOrder(db, props.res[0])}} id="btn-second">
                       <CheckCircle />確認送出
                   </Button>
-//                   <Button onClick={(event) => {props.onHide() ;createOrder(db, props.res[0])}}>createOrder</Button>
+{/* //                   <Button onClick={(event) => {props.onHide() ;createOrder(db, props.res[0])}}>createOrder</Button> */}
               </Modal.Footer>
           </Modal>
       </div>

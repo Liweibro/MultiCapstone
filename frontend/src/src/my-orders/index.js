@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
+import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
 import "./index.css";
 import BackButton from "./components/back-button";
 import {
@@ -98,9 +99,10 @@ export default function BasicGrid() {
       // getorder(db).then(order => setData(order));
       myorder(db, uid).then(res => setData(res));
   }, []);
-  console.log(data)
+  console.log(uid)
 
   return (
+    <>
     <Grid container direction={"column"}>
       <Grid container className="top_nav">
         <div className="fixed">
@@ -172,50 +174,47 @@ export default function BasicGrid() {
           </button></Link>
         )}
       </Grid>
-
-      <Navbar bg="dark" variant="dark" fixed="bottom">
-          <Nav>
-            
-            <Nav.Link href="#search">
-              <div className="bnav_item"><i class="bi bi-search"></i></div>
-              <div className="bnav_word">Search</div> 
-            </Nav.Link>
-
-            <Link to='/joinorder'>
-            <Nav.Link href="#together">
-              <div className="bnav_item"><i class="bi bi-card-list"></i></div>
-              <div className="bnav_word">Together</div>
-            </Nav.Link>
-            </Link>
-
-            <Link to={'/MultiCapstone'}>
-            <Nav.Link href="#home">
-              <div className="bnav_item"><i class="bi bi-house"></i></div>
-              <div className="bnav_word">Home</div>
-            </Nav.Link>
-            </Link>
-
-            <Link to="/myorder">
-            <Nav.Link href="#order">
-              <div className="bnav_item"><i class="bi bi-bag"></i></div>
-              <div className="bnav_word">Order</div>
-            </Nav.Link>
-            </Link>
-
-            <Link to ='/profile'>
-            <Nav.Link href="#account">
-              <div className="bnav_item"><i class="bi bi-person"></i></div>
-              <div className="bnav_word">Account</div>
-            </Nav.Link>
-            </Link>
-          </Nav>
-        
-      </Navbar>
-
-      
-      <br />
-      <br />
-      <br />
     </Grid>
+
+    <div className='navbar_container'>
+      <div className='search'>
+        <span className = "nav_icon"> <BiSearch/> </span>
+        <br/>
+        <span className = "nav_text">Search</span>
+      </div>
+
+      <Link to='/joinorder'>
+        <div className='together'>
+          <span className = "nav_icon"> <BiGroup/> </span>
+          <br/>
+          <span className="nav_text">Together</span>
+        </div>
+      </Link>
+
+      <Link to={'/MultiCapstone'}>
+        <div className='home'>
+          <span className = "nav_icon"> <BiHomeAlt/> </span>
+          <br/>
+          <span className="nav_text">Home</span>
+        </div>
+      </Link>
+
+      <Link to="/myorder" state={{ uid:"告白校花" }}>
+        <div className='order'>
+          <span className = "nav_icon"> <BiCart/> </span>
+          <br/>
+          <span className="nav_text">Order</span>
+        </div>
+      </Link>
+
+      <Link to ='/profile'>
+        <div className='account'>
+          <span className = "nav_icon"> <BiUser/> </span>
+          <br/>
+          <span className="nav_text">Account</span>
+        </div>
+      </Link>
+    </div>
+    </>
   );
 }

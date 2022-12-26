@@ -4,7 +4,9 @@ import self from '../0816018.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HiChat } from "react-icons/hi";
 import { BiChevronLeftCircle } from "react-icons/bi";
+import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
 import './Profile.css'
+import { Link } from "react-router-dom";
 
 function Profile() {
     const photo = 'https://picsum.photos/1920/1200?random=1'
@@ -22,6 +24,7 @@ function Profile() {
     ]
 
     return(
+        <>
         <Container className='wrapper_container'>
             <Row>
                 <div className='back'>
@@ -86,7 +89,47 @@ function Profile() {
             </Row>
             
         </Container>
+        
+        <div className='navbar_container'>
+            <div className='search'>
+                <span className = "nav_icon"> <BiSearch/> </span>
+                <br/>
+                <span className = "nav_text">Search</span>
+            </div>
 
+            <Link to='/joinorder'>
+                <div className='together'>
+                <span className = "nav_icon"> <BiGroup/> </span>
+                <br/>
+                <span className="nav_text">Together</span>
+                </div>
+            </Link>
+
+            <Link to={'/MultiCapstone'}>
+                <div className='home'>
+                <span className = "nav_icon"> <BiHomeAlt/> </span>
+                <br/>
+                <span className="nav_text">Home</span>
+                </div>
+            </Link>
+
+            <Link to="/myorder" state={{ uid:"告白校花" }}>
+                <div className='order'>
+                <span className = "nav_icon"> <BiCart/> </span>
+                <br/>
+                <span className="nav_text">Order</span>
+                </div>
+            </Link>
+
+            <Link to ='/profile'>
+                <div className='account'>
+                <span className = "nav_icon"> <BiUser/> </span>
+                <br/>
+                <span className="nav_text">Account</span>
+                </div>
+            </Link>
+        </div>
+        </>
     );
 }
 
