@@ -59,7 +59,7 @@ function Profile() {
                     </div>
                 </div>
         <Container className='wrapper_container'>
-            <Row style={{"height":300}}></Row>
+            <Row style={{"height":320}}></Row>
             
             <Row>
                 <Col xs={9}>
