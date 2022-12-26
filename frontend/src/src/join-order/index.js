@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Fliter from "./components/Fliter";
-import Item from "./components/Item";
 import "./index.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
