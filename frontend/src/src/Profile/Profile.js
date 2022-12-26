@@ -33,21 +33,25 @@ function Profile() {
                     <div className='left'>
                         
                         <div className='image' >
-                            <img src={self} style={{width: 100,height :100,borderRadius:"50%" , position:"relative", objectFit: "cover"}}  alt="profile" />
+                            <img src={self} style={{width: 100,height :100,borderRadius:"50%" , position:"relative",left:'10%', objectFit: "cover"}}  alt="profile" />
                         </div>    
                     
                     </div>
                     <div className='right'>
                         <div className='half upper'>
                             <div className='title'>
-                                Li Wei
+                                username
                             </div>
                         </div>
                         <div className='half bottom'>
-                            <div>good morning everyone my name is li wei bro</div>
+                            <div className='user_intro'>
+                                say something<br/>say something<br/>
+                                
+                                <HiChat style={{width:20}}/> 100
+                            </div>
                             
                             <div>
-                                <HiChat style={{width:20}}/> 100
+                                
                             </div>
                             <div></div>
                             <div></div>
@@ -55,66 +59,17 @@ function Profile() {
                     </div>
                 </div>
         <Container className='wrapper_container'>
-            {/* <Row>
-                <div className='back'>
-                    <div className='arrows'>
-                        <BiChevronLeftCircle/>
-                    </div>
-                    
-                    <div className='left'>
-                        
-                        <div className='image' >
-                            <img src={self} style={{width: 100,height :100,borderRadius:"50%" , position:"relative", objectFit: "cover"}}  alt="profile" />
-                        </div>    
-                    
-                    </div>
-                    <div className='right'>
-                        <div className='half upper'>
-                            <div className='title'>
-                                Li Wei
-                            </div>
-                        </div>
-                        <div className='half bottom'>
-                            <div>good morning everyone my name is li wei bro</div>
-                            
-                            <div>
-                                <HiChat style={{width:20}}/> 100
-                            </div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                </div>
-
-            </Row> */}
             <Row style={{"height":300}}></Row>
-            {/*<Row>
-                <Col xs={1}></Col>
-                <Col xs={6}>
-                    good morning everyone my name is li wei bro
-                </Col>
-                 
-            </Row>*/}
+            
             <Row>
-                <br>
-                </br>
-            </Row>
-            <Row>
-                <Col xs={1}></Col>
-                <Col xs={8}>
+                <Col xs={9}>
                     <Card style={{width:300}} >
                     <Card.Img variant="top"  style={{height:200}} src="https://picsum.photos/1920/1200?random=1" />
                         <Card.Body>
-                            <Card.Title>123</Card.Title>
-                            <Card.Text style={{"fontSize":'12px'}}>
-                            123
-                            </Card.Text>
-            
+                            <Card.Title style={{'fontSize':'1em', 'paddingBottom':'.5em'}}>美食日誌 #小木屋鬆餅</Card.Title>
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col xs={2}></Col>
-                
             </Row>
 
             <Row style={{"height":100}}></Row>

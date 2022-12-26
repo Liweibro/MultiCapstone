@@ -61,7 +61,7 @@ export default function BasicGrid() {
   return (
     <>
     <div className='top_navbar_container'>
-            <Link to={'/joinorder'}>
+            <Link to='/joinorder'>
                 <div className='list'>
                 <span className = "top_nav_icon"> <BiReceipt/> </span>
                 <br/>
@@ -77,7 +77,7 @@ export default function BasicGrid() {
                 </div>
             </Link>
 
-            <Link to={'/joinorder'}>
+            <Link to='/joinorder'>
                 <div className='friends'>
                 <span className = "top_nav_icon"> <BiGroup/> </span>
                 <br/>
@@ -106,9 +106,9 @@ export default function BasicGrid() {
 
       <Grid container direction="column">
         <Grid xs={12}>
+          {/* <br />
           <br />
-          <br />
-          <br />
+          <br /> */}
         </Grid>
         {data.map(d =>
           <Link to="/partorderdata" state={{ order:{d}, source:"/join-order" }}><button className="join_button" key={d[1].name}>

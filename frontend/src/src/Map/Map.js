@@ -35,7 +35,7 @@ function Map ()
                 </div>
             </Link>
 
-            <Link to={'/Map'}>
+            <Link to='/Map'>
                 <div className='map'>
                     <span className = "top_nav_icon"> <BiMap/> </span>
                     <br/>
