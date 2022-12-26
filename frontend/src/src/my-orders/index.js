@@ -123,7 +123,7 @@ export default function BasicGrid() {
         <Grid xs={4} display="flex" justifyContent="center" alignItems="center">
           <div className="fixed">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton id="tbg-radio-1" value={1}>
+              <ToggleButton id="tbg-radio-1" value={1} variant="secondary">
                 <div className="headtest">未送出</div>
               </ToggleButton>
             </ToggleButtonGroup>
@@ -133,7 +133,7 @@ export default function BasicGrid() {
         <Grid xs={4} display="flex" justifyContent="center" alignItems="center">
           <div className="fixed">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton id="tbg-radio-2" value={2}>
+              <ToggleButton id="tbg-radio-2" value={2} variant="secondary">
                 <div className="headtest">已送出</div>
               </ToggleButton>
             </ToggleButtonGroup>
@@ -143,7 +143,7 @@ export default function BasicGrid() {
         <Grid xs={4} display="flex" justifyContent="center" alignItems="center">
           <div className="fixed">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton id="tbg-radio-3" value={3}>
+              <ToggleButton id="tbg-radio-3" value={3} variant="secondary">
                 <div className="headtest">已完成</div>
               </ToggleButton>
             </ToggleButtonGroup>
