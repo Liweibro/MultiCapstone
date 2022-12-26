@@ -112,40 +112,6 @@ function Is_Res(props) {
     }
 }
 
-function Tag ()
-{
-    const [tags, setTags] = useState([])
-
-    function handleKeyDown(e)
-    {
-        if(e.key !== 'Enter') return
-        const value = e.target.value
-        if(!value.trim()) return
-        setTags([...tags, value])
-        e.target.value = ''
-    }
-
-    function removeTag(index)
-    {
-        setTags(tags.filter((el, i) => i !== index))
-    }
-
-    return(
-        <>
-        <div style={{ fontSize: "24px", }}>Tag：</div>
-        <div className='tags-input-container'>
-            { tags.map((tag, index) => (
-                <div className='tag-item' key={index}>
-                    <span className='text'>{tag}</span>
-                    <span className='close' onClick={() => removeTag(index)}>&times;</span>
-                </div>
-            )) }
-            <input onKeyDown={handleKeyDown} type="text" className='tags-input' placeholder='add tag' />
-        </div>
-        </>
-    )
-}
-
 function ChooseID(props) {
 //   console.log(props.res)
 
@@ -239,6 +205,39 @@ function OrderSetting(props) {
     "研三舍": [24.79218663298738, 120.9950263178108],
     "竹軒": [24.7903823212179, 120.99829697651035]}
   var point = [];
+  const [tags, setTags] = useState([])
+
+  function Tag ()
+    {
+        function handleKeyDown(e)
+        {
+            if(e.key !== 'Enter') return
+            const value = e.target.value
+            if(!value.trim()) return
+            setTags([...tags, value])
+            e.target.value = ''
+        }
+
+        function removeTag(index)
+        {
+            setTags(tags.filter((el, i) => i !== index))
+        }
+
+        return(
+            <>
+            <div style={{ fontSize: "24px", }}>Tag：</div>
+            <div className='tags-input-container'>
+                { tags.map((tag, index) => (
+                    <div className='tag-item' key={index}>
+                        <span className='text'>{tag}</span>
+                        <span className='close' onClick={() => removeTag(index)}>&times;</span>
+                    </div>
+                )) }
+                <input onKeyDown={handleKeyDown} type="text" className='tags-input' placeholder='add tag' />
+            </div>
+            </>
+        )
+    }
 
     async function createUserList(db, OID, UID) {
         const Ref = doc(db, "userList", UID);
@@ -280,7 +279,7 @@ function OrderSetting(props) {
         point = map[dst];
         const OID = Math.floor(Math.random() * 2839493).toString();
         const username = uid;
-        const t = ["下午茶", "冰品"];
+        const t = tags;
         const select_data = {
             autosend: autosend,
             autosend_time: new Date(sendtime),
@@ -299,9 +298,9 @@ function OrderSetting(props) {
         }
         console.log(select_data)
 
-        // insertOrder(db, OID, select_data);
-        // updateRes(db, RID, OID);
-        // createUserList(db, OID, username);
+        insertOrder(db, OID, select_data);
+        updateRes(db, RID, OID);
+        createUserList(db, OID, username);
         
     }
 
