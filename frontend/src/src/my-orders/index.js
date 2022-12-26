@@ -154,7 +154,7 @@ export default function BasicGrid() {
         <br />
         <br />
         {data.map(d => 
-          <Link to="/MyOrderData" state={{ order:{d} }}><button className="group_button" key={d.name}>
+          <Link to="/MyOrderData" state={{ order:d }}><button className="group_button" key={d.name}>
             
               <Grid container>
                 <Grid xs={3}>
