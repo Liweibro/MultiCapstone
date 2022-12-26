@@ -8,21 +8,17 @@ import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
 import "./index.css";
 import BackButton from "./components/back-button";
 import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
   Button
 } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
+
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import Image, { propTypes } from "react-bootstrap/Image";
 //import "bootstrap-icons/font/bootstrap-icons.css"
 import { useState, useEffect } from "react";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+// import Container from "react-bootstrap/Container";
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 import { Link, useLocation } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -41,20 +37,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
-async function getorder(db) {
-  const ordersCol = collection(db, 'order');
-  const orderSnapshot = await getDocs(ordersCol);
-  const orderList = orderSnapshot.docs.map(doc => doc.data());
-  return orderList;
-}
-async function getres(db) {
-    const resCol = collection(db, 'restaurant');
-    const resSnapshot = await getDocs(resCol);
+// async function getorder(db) {
+//   const ordersCol = collection(db, 'order');
+//   const orderSnapshot = await getDocs(ordersCol);
+//   const orderList = orderSnapshot.docs.map(doc => doc.data());
+//   return orderList;
+// }
+// async function getres(db) {
+//     const resCol = collection(db, 'restaurant');
+//     const resSnapshot = await getDocs(resCol);
     
-    const resList = resSnapshot.docs.map(doc => doc.data());
+//     const resList = resSnapshot.docs.map(doc => doc.data());
     
-    return resList;
-}
+//     return resList;
+// }
 
 async function get_spc_order(db, OID) {
   const Ref = doc(db, 'order', OID);
@@ -78,7 +74,6 @@ async function myorder(db, UID) {
               return d;
           })) ;
       }
-      console.log(data);
       return data;
 
   }
@@ -107,12 +102,10 @@ function FinishOrder(props) {
             alignItems: "center",
         }}
         >
-            {/* <div className='black'>當前進行中的拼單</div> */}
-            <div>
-              請輸入取餐號碼：
-              <input type="text" className="form-control" id="name" style={{ backgroundColor: "#d9d9d9", height: "50px" }}/>
+            <div style={{alignItems:"center", textAlign:"center", marginBottom:"5%"}}>
+              <p>請輸入取餐號碼：</p>
+              <input type="text" className="form-control" id="name" style={{ backgroundColor: "#d9d9d9", height: "50px", margin:"0 5%", width:"90%",alignItems:"center", textAlign:"center" }}/>
             </div>
-
             <div>
                 <Button onClick={(event) => { props.onHide();} } id="btn-second" style={{margin: "10px"}}>完成取餐</Button>
             </div>
@@ -139,7 +132,6 @@ export default function BasicGrid() {
       // getorder(db).then(order => setData(order));
       myorder(db, uid).then(res => setData(res));
   }, []);
-  console.log(uid)
 
   return (
     <>
