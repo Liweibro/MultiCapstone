@@ -459,7 +459,7 @@ function OrderSetting(props) {
 function OrderHasBeenPlaced(props) {
     const navigate = useNavigate();
     const uid = props.uid;
-    console.log(uid)
+    console.log('order has been', uid);
     async function updateOrder(db, OID, docData) {
         const Ref = doc(db, "order", OID);
         const docSnap = await getDoc(Ref);
@@ -579,7 +579,6 @@ function OrderHasBeenPart(props) {
         await updateOrder(db, OID, docData);
         await createUserList(db, OID, username);
     }
-    
     
 
     return (

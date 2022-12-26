@@ -14,7 +14,7 @@ import AllModal from './components/Modals/AllModal';
 import MyOrderData from './OrderData/MyOrder';
 import PartOrderData from './OrderData/PartOrder';
 import Map from './Map/Map';
-import Tag from './Tag/Tag';
+import Tag from './test/Tag';
 
 function App() {
   return (

@@ -25,8 +25,37 @@ function Profile() {
 
     return(
         <>
+        <div className='back'>
+                    {/* <div className='arrows'>
+                        <BiChevronLeftCircle/>
+                    </div> */}
+                    
+                    <div className='left'>
+                        
+                        <div className='image' >
+                            <img src={self} style={{width: 100,height :100,borderRadius:"50%" , position:"relative", objectFit: "cover"}}  alt="profile" />
+                        </div>    
+                    
+                    </div>
+                    <div className='right'>
+                        <div className='half upper'>
+                            <div className='title'>
+                                Li Wei
+                            </div>
+                        </div>
+                        <div className='half bottom'>
+                            <div>good morning everyone my name is li wei bro</div>
+                            
+                            <div>
+                                <HiChat style={{width:20}}/> 100
+                            </div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
         <Container className='wrapper_container'>
-            <Row>
+            {/* <Row>
                 <div className='back'>
                     <div className='arrows'>
                         <BiChevronLeftCircle/>
@@ -57,7 +86,7 @@ function Profile() {
                     </div>
                 </div>
 
-            </Row>
+            </Row> */}
             <Row style={{"height":300}}></Row>
             {/*<Row>
                 <Col xs={1}></Col>
@@ -77,7 +106,7 @@ function Profile() {
                     <Card.Img variant="top"  style={{height:200}} src="https://picsum.photos/1920/1200?random=1" />
                         <Card.Body>
                             <Card.Title>123</Card.Title>
-                            <Card.Text>
+                            <Card.Text style={{"fontSize":'12px'}}>
                             123
                             </Card.Text>
             
@@ -87,6 +116,8 @@ function Profile() {
                 <Col xs={2}></Col>
                 
             </Row>
+
+            <Row style={{"height":100}}></Row>
             
         </Container>
         

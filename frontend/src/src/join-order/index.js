@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Fliter from "./components/Fliter";
-import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt } from "react-icons/bi";
+import { BiSearch, BiCart, BiUser, BiGroup, BiHomeAlt, BiMap, BiReceipt } from "react-icons/bi";
 import "./index.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -60,8 +60,35 @@ export default function BasicGrid() {
   console.log(getres(db))
   return (
     <>
+    <div className='top_navbar_container'>
+            <Link to={'/joinorder'}>
+                <div className='list'>
+                <span className = "top_nav_icon"> <BiReceipt/> </span>
+                <br/>
+                <span className="top_nav_text">List</span>
+                </div>
+            </Link>
+
+            <Link to={'/Map'}>
+                <div className='map'>
+                    <span className = "top_nav_icon"> <BiMap/> </span>
+                    <br/>
+                    <span className = "top_nav_text">Map</span>
+                </div>
+            </Link>
+
+            <Link to={'/joinorder'}>
+                <div className='friends'>
+                <span className = "top_nav_icon"> <BiGroup/> </span>
+                <br/>
+                <span className="top_nav_text">Friends</span>
+                </div>
+            </Link>
+        </div>
+
+        <br />
     <Grid container direction="column">
-      <Grid container>
+      {/* <Grid container>
         <div className="fixed">
           <button className="fixedhead">&ensp;</button>
         </div>
@@ -75,7 +102,7 @@ export default function BasicGrid() {
             <Fliter />
           </div>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       <Grid container direction="column">
         <Grid xs={12}>
