@@ -105,13 +105,7 @@ function Homepage() {
           <Row style={{"height":20}}></Row>
           
           <Row>
-            <Col>
-              {/* some functions
-              <br/>
-              <Link to="/tag">tag</Link>
-              <br/>
-              <Link to="/map">map</Link> */}
-            </Col>
+            <Col></Col>
 
             <Col xs={9}>
               {resdata.map(rd => <div key={rd[1].name}>
