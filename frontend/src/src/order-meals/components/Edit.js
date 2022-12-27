@@ -135,6 +135,7 @@ function ChooseID(props) {
           dialogClassName="modal-width-center"
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          backdrop="static"
       >
           <Modal.Header style={{borderBottom:"none", backgroundColor: "#f5f5f5"}} closeButton />
           <Modal.Body className='a' style={{
@@ -312,7 +313,8 @@ function OrderSetting(props) {
               dialogClassName="modal-width-ordersetting"
               aria-labelledby="contained-modal-title-vcenter"
               centered
-              id="ex1">
+              id="ex1"
+              backdrop="static">
               <Modal.Header closeButton />
               <Modal.Body style={{"height":480}}>
                   <div className="container">
@@ -495,6 +497,7 @@ function OrderHasBeenPlaced(props) {
         dialogClassName="modal-width-center"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        backdrop="static"
       >
           <Modal.Header className='constheight' closeButton />
           <Modal.Body className='a'>
@@ -587,6 +590,7 @@ function OrderHasBeenPart(props) {
           dialogClassName="modal-width-center"
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          backdrop="static"
         >
             <Modal.Header className='constheight' closeButton />
             <Modal.Body className='a'>
