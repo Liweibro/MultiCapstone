@@ -95,6 +95,7 @@ function FinishOrder(props) {
         dialogClassName="modal-width-center"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        backdrop="static"
     >
         <Modal.Header style={{borderBottom:"none", backgroundColor: "#f5f5f5"}} closeButton />
         <Modal.Body className='a' style={{
