@@ -116,6 +116,7 @@ function OrderHasBeenPart(props) {
           dialogClassName="modal-width-center"
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          backdrop="static"
         >
 
             <Modal.Header className='constheight' closeButton />
